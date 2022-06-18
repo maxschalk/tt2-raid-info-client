@@ -1,7 +1,22 @@
 html,
 body {
 	margin: 0;
+	padding: 0;
 
 	height: 100%;
 	width: 100%;
+
+	font-family: 'Unica One',arial,helvetica,sans-serif;
+
+	background-color: rgba(0,0,0,0.03);
+}
+
+html {
+	/* overflow-y: scroll; */
+	overflow-x: hidden;
+}
+
+#svelte {
+	min-height: 100%;
+	position: relative;
 }

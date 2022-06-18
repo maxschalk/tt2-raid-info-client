@@ -17,10 +17,10 @@
 
 <style>
 	.main-app {
-		background-color: yellow;
-
 		margin: 2% 0;
 
 		padding: 1%;
+
+		background-color: yellow;
 	}
 </style>

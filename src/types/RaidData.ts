@@ -20,19 +20,6 @@ export interface Titan {
 	cursed_debuffs?: Buff[];
 }
 
-export interface RaidRawSeedData {
-	spawn_sequence: string[];
-
-	raid_info_valid_from: string;
-	raid_info_expire_at: string;
-
-	tier: number;
-	level: number;
-
-	titans: Titan[];
-
-	area_buffs?: Buff[];
-}
 export interface EnhancedTitanPart extends TitanPart {
 	cursed: boolean;
 	total_hp_formatted: string;
@@ -66,11 +53,38 @@ export interface EnhancedTitan extends Titan {
 	number_of_cursed_parts: number;
 }
 
-export interface RaidEnhancedSeedData extends RaidRawSeedData {
+export interface RaidSeedDataRaw {
+	spawn_sequence: string[];
+
+	raid_info_valid_from: string;
+	raid_info_expire_at: string;
+
+	tier: number;
+	level: number;
+
+	titans: Titan[];
+
+	area_buffs?: Buff[];
+}
+
+export interface RaidSeedDataEnhanced extends RaidSeedDataRaw {
 	raid_total_target_hp: number;
 	raid_total_target_hp_formatted: string;
 
 	titans: EnhancedTitan[];
 }
 
-export type RaidSeedData = RaidRawSeedData[] | RaidEnhancedSeedData[];
+export interface RaidSeedDataPrepared {
+	raid_info_valid_from: string;
+	raid_info_expire_at: string;
+
+	raw_data: RaidSeedData;
+
+	data_by_tier_level: {
+		[key: string]: {
+			[key: string]: RaidSeedDataRaw | RaidSeedDataEnhanced;
+		};
+	};
+}
+
+export type RaidSeedData = RaidSeedDataRaw[] | RaidSeedDataEnhanced[];

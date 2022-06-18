@@ -2,19 +2,19 @@
 	import type { ExternalFetch } from '@sveltejs/kit';
 
 	import { BASE_URLS } from '../../constants';
-	import { getStageFromEnv } from '../../utils';
+	import { getStageFromEnv, ISODateStringFromFilename } from '../../utils';
 
 	const STAGE = getStageFromEnv();
 
 	const BASE_URL = BASE_URLS[STAGE];
 
-	export async function load({ fetch }: { fetch: ExternalFetch }) {
-		const reqUrl = new URL(`${BASE_URL}/seeds/raw/all?sort_order=asc`);
+	export async function load({ fetch, url }: { fetch: ExternalFetch; url: URL }) {
+		const currentPath = url.href;
+
+		const reqUrl = new URL(`${BASE_URL}/admin/all_seed_filenames/raw`);
 		const req = new Request(reqUrl);
 
 		const res = await fetch(req);
-
-		const seeds: RaidSeedData[] = await res.json();
 
 		if (!res.ok) {
 			return {
@@ -23,17 +23,12 @@
 			};
 		}
 
-		const seeds_by_date: { [key: string]: RaidSeedData } = {};
-
-		seeds.forEach(
-			(seed) =>
-				(seeds_by_date[new Date(seed[0].raid_info_valid_from).toISOString().substring(0, 10)] =
-					seed)
-		);
+		const seed_filenames: string[] = await res.json();
 
 		return {
 			props: {
-				seeds
+				currentPath,
+				seed_filenames
 			}
 		};
 	}
@@ -42,16 +37,15 @@
 <script lang="ts">
 	import { navbar, type NavbarProps } from '../../stores';
 
-	import type { RaidSeedData } from '../../types';
-
-	export let seeds: RaidSeedData[] = [];
+	export let currentPath: string;
+	export let seed_filenames: string[] = [];
 
 	navbar.update((old: NavbarProps) => ({
 		...old,
 		titleSub: 'Raid Seed Info',
-		linksSub: seeds.map((seed) => ({
-			href: `/raid_info/${seed[0].raid_info_valid_from.substring(0, 10)}`,
-			displayText: seed[0].raid_info_valid_from.substring(0, 10),
+		linksSub: seed_filenames.map(ISODateStringFromFilename).map((isoDateString) => ({
+			href: `${currentPath}/${isoDateString}`,
+			displayText: isoDateString,
 			prefetch: true
 		}))
 	}));

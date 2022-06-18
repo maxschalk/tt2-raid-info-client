@@ -17,8 +17,10 @@
 			<h1>{props.titleMain}</h1>
 		{/if}
 
+		<!-- TODO Move into conditional div, with one continuous bgc -->
+
 		{#if props.linksMain.length}
-			<nav class="navbar">
+			<nav class="navbar-main">
 				{#each props.linksMain as link}
 					<a href={link.href} sveltekit:prefetch={link.prefetch ? true : null}>
 						{link.displayText}
@@ -33,7 +35,7 @@
 	{/if}
 
 	{#if props.linksMain.length}
-		<nav class="navbar">
+		<nav class="navbar-sub">
 			{#each props.linksSub as link}
 				<a href={link.href} sveltekit:prefetch={link.prefetch ? true : null}>
 					{link.displayText}
@@ -63,6 +65,8 @@
 
 		width: 100%;
 
+		padding-top: 8px;
+
 		background: linear-gradient(
 			0deg,
 			rgba(0, 148, 163, 0) 0%,
@@ -73,9 +77,7 @@
 
 	h1 {
 		margin: 0;
-		margin-top: -28px;
-
-		padding: 8px 0;
+		margin-top: -20px;
 
 		width: 100%;
 
@@ -91,6 +93,25 @@
 		);
 	}
 
+	nav {
+		display: flex;
+		justify-content: center;
+
+		width: 100%;
+
+		padding: 12px;
+
+		font-size: 1.2rem;
+
+		a {
+			margin: 0 8px;
+		}
+	}
+
+	.navbar-main {
+		background-color: rgba(255, 255, 255, 1);
+	}
+
 	h2 {
 		width: 100%;
 
@@ -100,18 +121,5 @@
 		font-size: 2rem;
 
 		text-align: center;
-	}
-
-	nav {
-		display: flex;
-		justify-content: center;
-
-		margin: 8px;
-
-		font-size: 1.2rem;
-
-		a {
-			margin: 0 8px;
-		}
 	}
 </style>
