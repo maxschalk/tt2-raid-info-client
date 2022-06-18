@@ -56,21 +56,32 @@
 		{seed.raid_info_expire_at} (<a href="https://time.is/GMT+2" target="_blank">GMT+2</a>)
 	</p>
 
-	<NumberInput
-		elementName="tier"
-		min={minTier}
-		max={maxTier}
-		value={tier}
-		onChange={onTierChange}
-	/>
+	<div class="input-group">
+		<div class="input-container">
+			<label for="tier">Enter tier ({minTier} - {maxTier})</label>
+			<NumberInput
+				elementName="tier"
+				min={minTier}
+				max={maxTier}
+				value={tier}
+				onChange={onTierChange}
+			/>
+		</div>
 
-	<NumberInput
-		elementName="level"
-		min={inputOptionsTierLevel[tier].min}
-		max={inputOptionsTierLevel[tier].max}
-		value={level}
-		onChange={onLevelChange}
-	/>
+		<div class="input-container">
+			<label for="level"
+				>Enter level ({inputOptionsTierLevel[tier].min} - {inputOptionsTierLevel[tier].max})</label
+			>
+
+			<NumberInput
+				elementName="level"
+				min={inputOptionsTierLevel[tier].min}
+				max={inputOptionsTierLevel[tier].max}
+				value={level}
+				onChange={onLevelChange}
+			/>
+		</div>
+	</div>
 
 	<hr />
 
@@ -82,3 +93,21 @@
 		</p>
 	{/if}
 </div>
+
+<style>
+	.input-group {
+		display: flex;
+		justify-content: space-evenly;
+
+		width: 50%;
+
+		padding: 0 25%;
+	}
+
+	.input-container {
+		display: flex;
+		flex-direction: column;
+
+		text-align: center;
+	}
+</style>
