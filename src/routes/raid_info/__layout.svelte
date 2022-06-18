@@ -8,9 +8,7 @@
 
 	const BASE_URL = BASE_URLS[STAGE];
 
-	export async function load({ fetch, url }: { fetch: ExternalFetch; url: URL }) {
-		const currentPath = url.href;
-
+	export async function load({ fetch }: { fetch: ExternalFetch }) {
 		const reqUrl = new URL(`${BASE_URL}/admin/all_seed_filenames/raw`);
 		const req = new Request(reqUrl);
 
@@ -27,7 +25,6 @@
 
 		return {
 			props: {
-				currentPath,
 				seed_filenames
 			}
 		};
@@ -37,14 +34,13 @@
 <script lang="ts">
 	import { navbar, type NavbarProps } from '../../stores';
 
-	export let currentPath: string;
 	export let seed_filenames: string[] = [];
 
 	navbar.update((old: NavbarProps) => ({
 		...old,
 		titleSub: 'Raid Seed Info',
 		linksSub: seed_filenames.map(ISODateStringFromFilename).map((isoDateString) => ({
-			href: `${currentPath}/${isoDateString}`,
+			href: `/raid_info/${isoDateString}`,
 			displayText: isoDateString,
 			prefetch: true
 		}))

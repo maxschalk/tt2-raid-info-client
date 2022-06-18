@@ -44,8 +44,6 @@
 			props: {
 				currentPath,
 				seedISODate,
-				// filename,
-				// seed_raw,
 				seed_prepared
 			}
 		};
@@ -59,21 +57,13 @@
 
 	export let currentPath: string;
 
-	export let seedISODate = '';
-	// export let filename = '';
-	// export let seed_raw: RaidSeedData = [];
+	export let seedISODate: string;
 	export let seed_prepared: RaidSeedDataPrepared;
-
-	const url_download_raw = ``;
 </script>
 
-{#if seed_prepared}
-	<RaidSeedDisplay seed={seed_prepared} />
-{:else}
-	LOADING
-{/if}
+<a href={`${currentPath}/download/raw`}>Download Raw Seed Data</a>
+<a href={`${currentPath}/download/enhanced`}>Download Enhanced Seed Data</a>
 
-{#if seedISODate}
-	<a href={`${currentPath}/download/raw`}>Download Raw Seed Data</a>
-	<a href={`${currentPath}/download/enhanced`}>Download Enhanced Seed Data</a>
-{/if}
+<hr />
+
+<RaidSeedDisplay {seedISODate} seed={seed_prepared} />
