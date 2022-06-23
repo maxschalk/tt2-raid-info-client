@@ -1,5 +1,6 @@
 <script lang="ts" context="module">
 	import type { ExternalFetch } from '@sveltejs/kit';
+	import type { RaidSeedDataEnhanced, RaidSeedDataPrepared } from 'src/types';
 
 	import { BASE_URLS } from '../../../constants';
 	import { filenameFromISODateString, getStageFromEnv, prepareRaidSeed } from '../../../utils';
@@ -23,7 +24,7 @@
 
 		const { filename } = filenameFromISODateString(seedISODate);
 
-		const reqUrl = new URL(`${BASE_URL}/admin/seed_file/raw/${filename}`);
+		const reqUrl = new URL(`${BASE_URL}/admin/seed_file/enhanced/${filename}`);
 
 		const req = new Request(reqUrl);
 
@@ -36,7 +37,7 @@
 			};
 		}
 
-		const seed_raw: RaidSeedData = await res.json();
+		const seed_raw: RaidSeedDataEnhanced = await res.json();
 
 		const seed_prepared: RaidSeedDataPrepared = prepareRaidSeed(seed_raw);
 
@@ -51,8 +52,6 @@
 </script>
 
 <script lang="ts">
-	import type { RaidSeedData, RaidSeedDataPrepared } from 'src/types';
-
 	import RaidSeedDisplay from '$lib/RaidSeedDisplay.svelte';
 
 	export let currentPath: string;
@@ -67,3 +66,10 @@
 <hr />
 
 <RaidSeedDisplay {seedISODate} seed={seed_prepared} />
+
+<style>
+	a {
+		display: block;
+		margin-bottom: 12px;
+	}
+</style>

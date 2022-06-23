@@ -38,6 +38,8 @@ export interface ConsolidateditanPart {
 export interface EnhancedTitan extends Titan {
 	parts: EnhancedTitanPart[];
 
+	total_hp_formatted: string;
+
 	total_armor_hp: number;
 	total_armor_hp_formatted: string;
 
@@ -53,7 +55,7 @@ export interface EnhancedTitan extends Titan {
 	number_of_cursed_parts: number;
 }
 
-export interface RaidSeedDataRaw {
+export interface RaidInfoDataRaw {
 	spawn_sequence: string[];
 
 	raid_info_valid_from: string;
@@ -67,7 +69,7 @@ export interface RaidSeedDataRaw {
 	area_buffs?: Buff[];
 }
 
-export interface RaidSeedDataEnhanced extends RaidSeedDataRaw {
+export interface RaidInfoDataEnhanced extends RaidInfoDataRaw {
 	raid_total_target_hp: number;
 	raid_total_target_hp_formatted: string;
 
@@ -78,13 +80,17 @@ export interface RaidSeedDataPrepared {
 	raid_info_valid_from: string;
 	raid_info_expire_at: string;
 
-	raw_data: RaidSeedData;
+	data: RaidSeedDataEnhanced;
 
 	data_by_tier_level: {
 		[key: string]: {
-			[key: string]: RaidSeedDataRaw | RaidSeedDataEnhanced;
+			[key: string]: RaidInfoDataEnhanced;
 		};
 	};
 }
 
-export type RaidSeedData = RaidSeedDataRaw[] | RaidSeedDataEnhanced[];
+export type RaidInfoData = RaidInfoDataRaw | RaidInfoDataEnhanced;
+
+export type RaidSeedDataRaw = RaidInfoDataRaw[];
+export type RaidSeedDataEnhanced = RaidInfoDataEnhanced[];
+export type RaidSeedData = RaidSeedDataRaw | RaidSeedDataEnhanced;

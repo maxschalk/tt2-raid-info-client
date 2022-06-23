@@ -21,6 +21,6 @@
 
 		padding: 1%;
 
-		background-color: yellow;
+		background-color: lightcyan;
 	}
 </style>

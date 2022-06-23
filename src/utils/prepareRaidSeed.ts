@@ -1,14 +1,14 @@
 import type {
 	RaidSeedDataPrepared,
 	RaidSeedData,
-	RaidSeedDataRaw,
-	RaidSeedDataEnhanced
+	RaidInfoDataRaw,
+	RaidInfoDataEnhanced
 } from 'src/types';
 
 export function prepareRaidSeed(seed: RaidSeedData): RaidSeedDataPrepared {
 	const data_by_tier_level: {
 		[key: string]: {
-			[key: string]: RaidSeedDataRaw | RaidSeedDataEnhanced;
+			[key: string]: RaidInfoDataRaw | RaidInfoDataEnhanced;
 		};
 	} = {};
 
@@ -28,7 +28,7 @@ export function prepareRaidSeed(seed: RaidSeedData): RaidSeedDataPrepared {
 		raid_info_valid_from: seed[0].raid_info_valid_from,
 		raid_info_expire_at: seed[0].raid_info_expire_at,
 
-		raw_data: seed,
+		data: seed,
 
 		data_by_tier_level
 	};

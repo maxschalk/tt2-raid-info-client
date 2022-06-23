@@ -1,6 +1,7 @@
 <script lang="ts">
-	import type { RaidSeedDataEnhanced, RaidSeedDataPrepared, RaidSeedDataRaw } from '../types';
+	import type { RaidInfoDataEnhanced, RaidSeedDataPrepared } from '../types';
 	import NumberInput from './NumberInput.svelte';
+	import RaidInfoDisplay from './RaidInfoDisplay/RaidInfoDisplay.svelte';
 
 	export let seedISODate: string;
 	export let seed: RaidSeedDataPrepared;
@@ -8,7 +9,7 @@
 	let tier = 1;
 	let level = 1;
 
-	let raidInfo: RaidSeedDataRaw | RaidSeedDataEnhanced = seed.data_by_tier_level[tier][level];
+	let raidInfo: RaidInfoDataEnhanced = seed.data_by_tier_level[tier][level];
 
 	const inputOptionsTierLevel: { [key: string]: { min: number; max: number } } = {};
 
@@ -24,9 +25,8 @@
 
 	function onTierChange(value: number) {
 		tier = value;
-		level = 1;
 
-		raidInfo = seed.data_by_tier_level[tier][level];
+		onLevelChange(1);
 	}
 
 	function onLevelChange(value: number) {
@@ -40,7 +40,7 @@
 	<p>
 		<b>Seed {seedISODate} | </b>
 		{#if new Date(seed.raid_info_valid_from) > new Date()}
-			<b style="color: red">Not yet active</b>
+			<b style="color: orange">Not yet active</b>
 		{:else if new Date(seed.raid_info_expire_at) < new Date()}
 			<b style="color: red">Not active anymore</b>
 		{:else}
@@ -49,11 +49,13 @@
 	</p>
 	<p>
 		<b>Valid from:</b>
-		{seed.raid_info_valid_from} (<a href="https://time.is/GMT+2" target="_blank">GMT+2</a>)
+		{seed.raid_info_valid_from.split('T').join(' ')}
+		(<a href="https://time.is/GMT+2" target="_blank">GMT+2</a>)
 	</p>
 	<p>
 		<b>Expires at:</b>
-		{seed.raid_info_expire_at} (<a href="https://time.is/GMT+2" target="_blank">GMT+2</a>)
+		{seed.raid_info_expire_at.split('T').join(' ')}
+		(<a href="https://time.is/GMT+2" target="_blank">GMT+2</a>)
 	</p>
 
 	<div class="input-group">
@@ -86,11 +88,7 @@
 	<hr />
 
 	{#if raidInfo}
-		<p><b>Raid Info {`${raidInfo.tier}-${raidInfo.level}`}</b></p>
-		<p>
-			<b>Spawn Sequence:</b>
-			{raidInfo.spawn_sequence.join(' | ')}
-		</p>
+		<RaidInfoDisplay {raidInfo} />
 	{/if}
 </div>
 
