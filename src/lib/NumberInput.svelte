@@ -39,3 +39,9 @@
 </script>
 
 <input type="number" name={elementName} {min} {max} {value} on:change={handleOnChange} />
+
+<style>
+	input {
+		width: min-content;
+	}
+</style>

@@ -1,5 +1,6 @@
 <script lang="ts">
 	import type { EnhancedTitan, RaidInfoDataEnhanced, Titan } from 'src/types';
+	import { formatBuff } from '../../utils';
 	import TitanDisplay from './TitanDisplay.svelte';
 	import TitanSelectionButton from './TitanSelectionButton.svelte';
 
@@ -21,6 +22,19 @@
 </script>
 
 <p><b>Raid Info {`${raidInfo.tier}-${raidInfo.level}`}</b></p>
+
+{#if raidInfo.area_buffs?.length}
+	<p>
+		<b>Area buffs:</b>
+		{raidInfo.area_buffs.map(formatBuff).join(' | ')}
+	</p>
+{/if}
+
+<p>
+	<b>Total Target HP:</b>
+	{raidInfo.raid_total_target_hp_formatted}
+</p>
+
 <div>
 	<b>Spawn Sequence:</b>
 
@@ -32,5 +46,10 @@
 		/>
 	{/each}
 
-	<TitanDisplay titanInfo={enemyInfoByTitan[selectedTitan]} />
+	<hr />
+
+	<TitanDisplay
+		titanInfo={enemyInfoByTitan[selectedTitan]}
+		count={spawnSequence.filter((t) => t === selectedTitan).length}
+	/>
 </div>

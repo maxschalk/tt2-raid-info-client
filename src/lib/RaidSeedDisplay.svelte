@@ -9,7 +9,8 @@
 	let tier = 1;
 	let level = 1;
 
-	let raidInfo: RaidInfoDataEnhanced = seed.data_by_tier_level[tier][level];
+	let raidInfo: RaidInfoDataEnhanced;
+	$: raidInfo = seed.data_by_tier_level[tier][level];
 
 	const inputOptionsTierLevel: { [key: string]: { min: number; max: number } } = {};
 
@@ -38,13 +39,13 @@
 
 <div class="container">
 	<p>
-		<b>Seed {seedISODate} | </b>
+		<b>Seed {seedISODate}</b>
 		{#if new Date(seed.raid_info_valid_from) > new Date()}
-			<b style="color: orange">Not yet active</b>
+			<b style="color: orange">(Not yet active)</b>
 		{:else if new Date(seed.raid_info_expire_at) < new Date()}
-			<b style="color: red">Not active anymore</b>
+			<b style="color: red">(Not active anymore)</b>
 		{:else}
-			<b style="color: green">Currently active</b>
+			<b style="color: green">(Currently active)</b>
 		{/if}
 	</p>
 	<p>
@@ -59,30 +60,30 @@
 	</p>
 
 	<div class="input-group">
-		<div class="input-container">
-			<label for="tier">Enter tier ({minTier} - {maxTier})</label>
-			<NumberInput
-				elementName="tier"
-				min={minTier}
-				max={maxTier}
-				value={tier}
-				onChange={onTierChange}
-			/>
-		</div>
+		<!-- <div class="input-container"> -->
+		<label for="tier">Enter tier ({minTier} - {maxTier}):</label>
+		<NumberInput
+			elementName="tier"
+			min={minTier}
+			max={maxTier}
+			value={tier}
+			onChange={onTierChange}
+		/>
+		<!-- </div>
 
-		<div class="input-container">
-			<label for="level"
-				>Enter level ({inputOptionsTierLevel[tier].min} - {inputOptionsTierLevel[tier].max})</label
-			>
+		<div class="input-container"> -->
+		<label for="level"
+			>Enter level ({inputOptionsTierLevel[tier].min} - {inputOptionsTierLevel[tier].max}):</label
+		>
 
-			<NumberInput
-				elementName="level"
-				min={inputOptionsTierLevel[tier].min}
-				max={inputOptionsTierLevel[tier].max}
-				value={level}
-				onChange={onLevelChange}
-			/>
-		</div>
+		<NumberInput
+			elementName="level"
+			min={inputOptionsTierLevel[tier].min}
+			max={inputOptionsTierLevel[tier].max}
+			value={level}
+			onChange={onLevelChange}
+		/>
+		<!-- </div> -->
 	</div>
 
 	<hr />
@@ -94,18 +95,11 @@
 
 <style>
 	.input-group {
-		display: flex;
-		justify-content: space-evenly;
+		display: grid;
+		grid-template-columns: 1fr 1fr;
 
-		width: 50%;
+		width: 25%;
 
-		padding: 0 25%;
-	}
-
-	.input-container {
-		display: flex;
-		flex-direction: column;
-
-		text-align: center;
+		gap: 8px;
 	}
 </style>

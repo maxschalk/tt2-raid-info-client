@@ -1,10 +1,9 @@
 <script lang="ts">
 </script>
 
-<footer>
+<!-- <footer>
 	<div>FOOTER</div>
-</footer>
-
+</footer> -->
 <style lang="scss">
 	footer {
 		position: absolute;

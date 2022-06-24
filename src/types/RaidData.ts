@@ -31,6 +31,9 @@ export interface ConsolidateditanPart {
 	armor_hp: number;
 	body_hp: number;
 
+	armor_hp_formatted: number;
+	body_hp_formatted: number;
+
 	armor_cursed: boolean;
 	body_cursed: boolean;
 }

@@ -8,7 +8,11 @@
 	export let classes: string[] = [];
 </script>
 
-<button on:click={onClick} class={`${classes.join(' ')} ${active ? 'active' : ''}`}>
+<button
+	disabled={active}
+	class={`${classes.join(' ')} ${active ? 'active' : ''}`}
+	on:click={onClick}
+>
 	{titan}
 </button>
 
@@ -16,9 +20,13 @@
 	button {
 		padding: 4px 12px;
 		margin: 0 4px;
+
+		cursor: pointer;
 	}
 
 	.active {
 		text-decoration: underline;
+
+		cursor: default;
 	}
 </style>
