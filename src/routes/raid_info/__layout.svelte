@@ -34,12 +34,12 @@
 <script lang="ts">
 	import { navbar, type NavbarProps } from '../../stores';
 
-	export let seed_filenames: string[] = [];
+	export let seedFilenames: string[] = [];
 
 	navbar.update((old: NavbarProps) => ({
 		...old,
 		titleSub: 'Raid Seed Info',
-		linksSub: seed_filenames.map(ISODateStringFromFilename).map((isoDateString) => ({
+		linksSub: seedFilenames.map(ISODateStringFromFilename).map((isoDateString) => ({
 			href: `/raid_info/${isoDateString}`,
 			displayText: isoDateString,
 			prefetch: true
@@ -47,4 +47,4 @@
 	}));
 </script>
 
-<slot {seed_filenames} />
+<slot {seedFilenames} />

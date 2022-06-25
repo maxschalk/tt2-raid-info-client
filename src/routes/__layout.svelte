@@ -6,7 +6,7 @@
 	import Footer from '$lib/Footer.svelte';
 </script>
 
-<nav />
+<Nav />
 
 <main>
 	<div class="main-app">

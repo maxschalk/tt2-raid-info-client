@@ -4,9 +4,6 @@
 
 	import { page } from '$app/stores';
 
-	$: console.log($page.url);
-	$: console.log($page.params);
-
 	let props: NavbarProps = getDefaultNavbarProps();
 
 	const unsubscribe = navbar.subscribe((value) => (props = value));
