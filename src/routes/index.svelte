@@ -2,13 +2,6 @@
 	import { getDefaultNavbarProps, navbar } from '../stores';
 
 	navbar.set(getDefaultNavbarProps());
-
-	import { BASE_URLS } from '../constants';
-	import { getStageFromEnv } from '../utils';
-
-	const STAGE = getStageFromEnv();
-
-	const BASE_URL = BASE_URLS[STAGE];
 </script>
 
 <h2>Welcome to the TT2 Raid Info Web App</h2>
