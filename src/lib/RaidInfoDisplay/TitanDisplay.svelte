@@ -11,6 +11,13 @@
 
 <p><b>{titanInfo.enemy_name}</b> (x{count})</p>
 
+{#if titanInfo.area_debuffs?.length}
+	<p>
+		<b>Area Debuff:</b>
+		{titanInfo.area_debuffs.map((b) => formatBuff(b, titanInfo.area_debuffs?.length)).join(' | ')}
+	</p>
+{/if}
+
 {#if cursedDebuffs.length}
 	<p>
 		<b class="cursed">Curse Debuff:</b>

@@ -25,6 +25,11 @@ export function getDefaultNavbarProps() {
 				href: '/raid_info',
 				displayText: 'Raid Seed Info',
 				prefetch: true
+			},
+			{
+				href: '/about',
+				displayText: 'About',
+				prefetch: true
 			}
 		],
 		titleSub: '',

@@ -21,11 +21,11 @@
 			};
 		}
 
-		const seed_filenames: string[] = await res.json();
+		const seedFilenames: string[] = await res.json();
 
 		return {
 			props: {
-				seed_filenames
+				seedFilenames
 			}
 		};
 	}
@@ -47,4 +47,4 @@
 	}));
 </script>
 
-<slot />
+<slot {seed_filenames} />

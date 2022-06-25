@@ -2,6 +2,11 @@
 	import { getDefaultNavbarProps, navbar, type NavbarProps } from '../stores';
 	import { onDestroy } from 'svelte';
 
+	import { page } from '$app/stores';
+
+	$: console.log($page.url);
+	$: console.log($page.params);
+
 	let props: NavbarProps = getDefaultNavbarProps();
 
 	const unsubscribe = navbar.subscribe((value) => (props = value));
@@ -22,7 +27,12 @@
 		{#if props.linksMain.length}
 			<nav class="navbar-main">
 				{#each props.linksMain as link}
-					<a href={link.href} sveltekit:prefetch={link.prefetch ? true : null}>
+					<a
+						class:active={link.href !== '/' && $page.url.pathname.startsWith(link.href)}
+						disabled={$page.url.pathname === link.href}
+						href={link.href}
+						sveltekit:prefetch={link.prefetch ? true : null}
+					>
 						{link.displayText}
 					</a>
 				{/each}
@@ -37,7 +47,11 @@
 	{#if props.linksMain.length}
 		<nav class="navbar-sub">
 			{#each props.linksSub as link}
-				<a href={link.href} sveltekit:prefetch={link.prefetch ? true : null}>
+				<a
+					class:active={$page.url.pathname.endsWith(link.href)}
+					href={link.href}
+					sveltekit:prefetch={link.prefetch ? true : null}
+				>
 					{link.displayText}
 				</a>
 			{/each}
@@ -121,5 +135,14 @@
 		font-size: 2rem;
 
 		text-align: center;
+	}
+
+	a,
+	a:visited {
+		color: blue;
+	}
+
+	a.active {
+		color: rgba(255, 0, 0);
 	}
 </style>
