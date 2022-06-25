@@ -1,11 +1,12 @@
 <script lang="ts">
+	import '../app.css';
 	import '../global.css';
 
 	import Nav from '$lib/Nav.svelte';
 	import Footer from '$lib/Footer.svelte';
 </script>
 
-<Nav />
+<nav />
 
 <main>
 	<div class="main-app">
@@ -13,7 +14,7 @@
 	</div>
 </main>
 
-<Footer />
+<footer />
 
 <style>
 	.main-app {
