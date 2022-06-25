@@ -1,9 +1,3 @@
-<script lang="ts">
-	import { getDefaultNavbarProps, navbar } from '../stores';
-
-	navbar.set(getDefaultNavbarProps());
-</script>
-
 <h2>Welcome to the TT2 Raid Info Web App</h2>
 
 <div>
@@ -22,6 +16,3 @@
 		<a href="/about">About</a>.
 	</p>
 </div>
-
-<style>
-</style>

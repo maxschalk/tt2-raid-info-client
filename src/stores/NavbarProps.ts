@@ -2,38 +2,35 @@ import { writable } from 'svelte/store';
 
 export interface NavbarProps {
 	titleMain: string;
-	linksMain: NavbarLink[];
-	titleSub: string;
-	linksSub: NavbarLink[];
+	start?: NavbarLink;
+	links: { [key: string]: NavbarLink };
 }
 
 export interface NavbarLink {
 	href: string;
 	displayText: string;
 	prefetch?: boolean;
+	children?: Omit<NavbarLink, 'children'>[];
 }
 
 export function getDefaultNavbarProps() {
 	return {
-		titleMain: 'Tap Titans 2 Raid Info',
-		linksMain: [
-			{
-				href: '/',
-				displayText: 'Home'
-			},
-			{
+		titleMain: 'TT2 Raid Info',
+		start: {
+			href: '/',
+			displayText: 'HOME'
+		},
+		links: {
+			raidInfo: {
 				href: '/raid_info',
-				displayText: 'Raid Seed Info',
-				prefetch: true
+				displayText: 'RAID SEEDS'
 			},
-			{
+			about: {
 				href: '/about',
-				displayText: 'About',
+				displayText: 'ABOUT',
 				prefetch: true
 			}
-		],
-		titleSub: '',
-		linksSub: []
+		}
 	};
 }
 

@@ -15,18 +15,3 @@
 >
 	{titan}
 </button>
-
-<style>
-	button {
-		padding: 4px 12px;
-		margin: 0 4px;
-
-		cursor: pointer;
-	}
-
-	.active {
-		text-decoration: underline;
-
-		cursor: default;
-	}
-</style>

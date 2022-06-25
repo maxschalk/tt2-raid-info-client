@@ -60,7 +60,6 @@
 	</p>
 
 	<div class="input-group">
-		<!-- <div class="input-container"> -->
 		<label for="tier">Enter tier ({minTier} - {maxTier}):</label>
 		<NumberInput
 			elementName="tier"
@@ -69,9 +68,7 @@
 			value={tier}
 			onChange={onTierChange}
 		/>
-		<!-- </div>
 
-		<div class="input-container"> -->
 		<label for="level"
 			>Enter level ({inputOptionsTierLevel[tier].min} - {inputOptionsTierLevel[tier].max}):</label
 		>
@@ -83,7 +80,6 @@
 			value={level}
 			onChange={onLevelChange}
 		/>
-		<!-- </div> -->
 	</div>
 
 	<hr />
@@ -92,14 +88,3 @@
 		<RaidInfoDisplay {raidInfo} />
 	{/if}
 </div>
-
-<style>
-	.input-group {
-		display: grid;
-		grid-template-columns: 1fr 1fr;
-
-		width: 25%;
-
-		gap: 8px;
-	}
-</style>

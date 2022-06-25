@@ -1,145 +1,80 @@
 <script lang="ts">
-	import { getDefaultNavbarProps, navbar, type NavbarProps } from '../stores';
+	import { navbar, type NavbarProps } from '../stores';
 	import { onDestroy } from 'svelte';
 
 	import { page } from '$app/stores';
+	import ThemeSelect from './ThemeSelect.svelte';
 
-	let props: NavbarProps = getDefaultNavbarProps();
+	let props: NavbarProps;
 
 	const unsubscribe = navbar.subscribe((value) => (props = value));
 
 	onDestroy(unsubscribe);
 </script>
 
-<div class="container">
-	<div class="hero">
-		<img src="/tt2-hero.png" alt="TT2 Hero" />
+<div class="navbar bg-base-300 py-4 mb-8 shadow-md">
+	{#if props.start !== undefined}
+		<div class="navbar-start">
+			<a href={props.start.href} class="btn btn-ghost normal-case text-xl">
+				{props.start.displayText}
+			</a>
+		</div>
+	{/if}
 
-		{#if props.titleMain}
-			<h1>{props.titleMain}</h1>
-		{/if}
+	{#if Object.keys(props.links).length > 0}
+		<div class="navbar-center hidden lg:flex">
+			<ul class="menu menu-horizontal p-0">
+				{#each Object.values(props.links) as link, index}
+					{#if link.children === undefined}
+						<li class="mx-2" tabindex={index}>
+							<a
+								href={link.href}
+								class:active={$page.url.pathname.startsWith(link.href)}
+								class:font-bold={$page.url.pathname.startsWith(link.href)}
+							>
+								{link.displayText}
+							</a>
+						</li>
+					{:else}
+						<li class="mx-2" tabindex={index}>
+							<a
+								href={link.href}
+								class:active={$page.url.pathname.startsWith(link.href)}
+								class:font-bold={$page.url.pathname.startsWith(link.href)}
+							>
+								{link.displayText}
+								<!-- TODO replace with wrapped icon -->
+								<svg
+									class="fill-current"
+									xmlns="http://www.w3.org/2000/svg"
+									width="20"
+									height="20"
+									viewBox="0 0 24 24"
+									><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z" /></svg
+								>
+							</a>
 
-		<!-- TODO Move into conditional div, with one continuous bgc -->
-
-		{#if props.linksMain.length}
-			<nav class="navbar-main">
-				{#each props.linksMain as link}
-					<a
-						class:active={link.href !== '/' && $page.url.pathname.startsWith(link.href)}
-						disabled={$page.url.pathname === link.href}
-						href={link.href}
-						sveltekit:prefetch={link.prefetch ? true : null}
-					>
-						{link.displayText}
-					</a>
+							<ul class="p-2 bg-base-200 w-full">
+								{#each link.children as child}
+									<li>
+										<a
+											href={child.href}
+											class:active={$page.url.pathname.endsWith(child.href)}
+											class:font-bold={$page.url.pathname.endsWith(child.href)}
+										>
+											{child.displayText}
+										</a>
+									</li>
+								{/each}
+							</ul>
+						</li>
+					{/if}
 				{/each}
-			</nav>
-		{/if}
+			</ul>
+		</div>
+	{/if}
+
+	<div class="navbar-end">
+		<ThemeSelect />
 	</div>
-
-	{#if props.titleSub}
-		<h2>{props.titleSub}</h2>
-	{/if}
-
-	{#if props.linksMain.length}
-		<nav class="navbar-sub">
-			{#each props.linksSub as link}
-				<a
-					class:active={$page.url.pathname.endsWith(link.href)}
-					href={link.href}
-					sveltekit:prefetch={link.prefetch ? true : null}
-				>
-					{link.displayText}
-				</a>
-			{/each}
-		</nav>
-	{/if}
 </div>
-
-<style lang="scss">
-	.container {
-		display: flex;
-		flex-direction: column;
-
-		align-items: center;
-		justify-content: center;
-
-		width: 100%;
-	}
-
-	.hero {
-		display: flex;
-		flex-direction: column;
-
-		align-items: center;
-		justify-content: center;
-
-		width: 100%;
-
-		padding-top: 8px;
-
-		background: linear-gradient(
-			0deg,
-			rgba(0, 148, 163, 0) 0%,
-			rgba(0, 148, 163, 0.1) 30%,
-			rgba(0, 148, 163, 0.7) 100%
-		);
-	}
-
-	h1 {
-		margin: 0;
-		margin-top: -20px;
-
-		width: 100%;
-
-		font-size: 3rem;
-
-		text-align: center;
-
-		background: linear-gradient(
-			180deg,
-			rgba(255, 255, 255, 0) 0%,
-			rgba(255, 255, 255, 0.9) 30%,
-			rgba(255, 255, 255, 1) 100%
-		);
-	}
-
-	nav {
-		display: flex;
-		justify-content: center;
-
-		width: 100%;
-
-		padding: 12px;
-
-		font-size: 1.2rem;
-
-		a {
-			margin: 0 8px;
-		}
-	}
-
-	.navbar-main {
-		background-color: rgba(255, 255, 255, 1);
-	}
-
-	h2 {
-		width: 100%;
-
-		margin: 0;
-		margin-top: 8px;
-
-		font-size: 2rem;
-
-		text-align: center;
-	}
-
-	a,
-	a:visited {
-		color: blue;
-	}
-
-	a.active {
-		color: rgba(255, 0, 0);
-	}
-</style>

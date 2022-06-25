@@ -66,10 +66,3 @@
 <hr />
 
 <RaidSeedDisplay {seedISODate} seed={seed_prepared} />
-
-<style>
-	a {
-		display: block;
-		margin-bottom: 12px;
-	}
-</style>
