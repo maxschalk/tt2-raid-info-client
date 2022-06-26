@@ -13,7 +13,7 @@ export function formatBuff(buff: Buff, numCursedParts = 0) {
 				? ` (Total: ${amountPercent * numCursedParts}%, ${numCursedParts} parts)`
 				: '';
 
-		return `${buffName} ${amountPercent}%${totalCurseCalc}`;
+		return `${amountPercent}% ${buffName} ${totalCurseCalc}`;
 	}
 
 	const totalCurseCalc =
@@ -21,7 +21,7 @@ export function formatBuff(buff: Buff, numCursedParts = 0) {
 			? ` (Total: ${buff.bonus_amount * numCursedParts}, ${numCursedParts} parts)`
 			: '';
 
-	return `${buffName} ${buff.bonus_amount}${totalCurseCalc}`;
+	return `${buff.bonus_amount} ${buffName} ${totalCurseCalc}`;
 }
 
 export function formatBuffName(buff: string) {

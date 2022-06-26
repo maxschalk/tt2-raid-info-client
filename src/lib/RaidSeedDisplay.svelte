@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { page } from '$app/stores';
+
 	import type { RaidInfoDataEnhanced, RaidSeedDataPrepared } from '../types';
 	import NumberInput from './NumberInput.svelte';
 	import RaidInfoDisplay from './RaidInfoDisplay/RaidInfoDisplay.svelte';
@@ -24,65 +26,106 @@
 	const minTier = Math.min(...Object.keys(seed.data_by_tier_level).map((val) => parseInt(val, 10)));
 	const maxTier = Math.max(...Object.keys(seed.data_by_tier_level).map((val) => parseInt(val, 10)));
 
+	let minLevel = inputOptionsTierLevel[tier].min;
+
+	let maxLevel = inputOptionsTierLevel[tier].max;
+
 	function onTierChange(value: number) {
 		tier = value;
 
-		onLevelChange(1);
+		minLevel = inputOptionsTierLevel[tier].min;
+		maxLevel = inputOptionsTierLevel[tier].max;
+
+		onLevelChange(level);
 	}
 
 	function onLevelChange(value: number) {
 		level = value;
 
+		if (value < minLevel) {
+			level = minLevel;
+		} else if (value > maxLevel) {
+			level = maxLevel;
+		}
+
 		raidInfo = seed.data_by_tier_level[tier][level];
 	}
 </script>
 
-<div class="container">
-	<p>
-		<b>Seed {seedISODate}</b>
-		{#if new Date(seed.raid_info_valid_from) > new Date()}
-			<b style="color: orange">(Not yet active)</b>
-		{:else if new Date(seed.raid_info_expire_at) < new Date()}
-			<b style="color: red">(Not active anymore)</b>
-		{:else}
-			<b style="color: green">(Currently active)</b>
-		{/if}
-	</p>
-	<p>
+<div class="container max-w-4xl flex flex-col items-center">
+	<div class="grid grid-cols-2 gap-3 items-center justify-items-center">
+		<!-- TODO PREV | NEXT Buttons -->
+		<p class="font-bold">Seed {seedISODate}</p>
+
+		<p class="font-bold">
+			{#if new Date(seed.raid_info_valid_from) > new Date()}
+				<span class="text-warning">Not yet active</span>
+			{:else if new Date(seed.raid_info_expire_at) < new Date()}
+				<span class="text-error">Not active anymore</span>
+			{:else}
+				<span class="text-success">Currently active</span>
+			{/if}
+		</p>
+
 		<b>Valid from:</b>
-		{seed.raid_info_valid_from.split('T').join(' ')}
-		(<a href="https://time.is/GMT+2" target="_blank">GMT+2</a>)
-	</p>
-	<p>
+		<p>
+			{seed.raid_info_valid_from.split('T').join(' ')}
+			(
+			<a href="https://time.is/GMT+2" target="_blank" class="link link-hover link-accent">
+				GMT+2
+			</a>
+			)
+		</p>
 		<b>Expires at:</b>
-		{seed.raid_info_expire_at.split('T').join(' ')}
-		(<a href="https://time.is/GMT+2" target="_blank">GMT+2</a>)
-	</p>
+		<p>
+			{seed.raid_info_expire_at.split('T').join(' ')}
+			(
+			<a href="https://time.is/GMT+2" target="_blank" class="link link-hover link-accent">
+				GMT+2
+			</a>
+			)
+		</p>
 
-	<div class="input-group">
-		<label for="tier">Enter tier ({minTier} - {maxTier}):</label>
-		<NumberInput
-			elementName="tier"
-			min={minTier}
-			max={maxTier}
-			value={tier}
-			onChange={onTierChange}
-		/>
+		<div class="btn-group col-span-2 grid grid-cols-2 grid-gap-4">
+			<a class="btn btn-blu font-bold shadow" href={`${$page.url.href}/download/raw`}>
+				Download Raw Seed Data
+			</a>
 
-		<label for="level"
-			>Enter level ({inputOptionsTierLevel[tier].min} - {inputOptionsTierLevel[tier].max}):</label
-		>
-
-		<NumberInput
-			elementName="level"
-			min={inputOptionsTierLevel[tier].min}
-			max={inputOptionsTierLevel[tier].max}
-			value={level}
-			onChange={onLevelChange}
-		/>
+			<a class="btn btn-accent font-bold shadow" href={`${$page.url.href}/download/enhanced`}>
+				Download Enhanced Seed Data
+			</a>
+		</div>
 	</div>
 
-	<hr />
+	<div class="divider" />
+
+	<div class="grid grid-cols-2 gap-3 items-center justify-items-center">
+		<div class="col-span-2 input-group grid grid-cols-2">
+			<span>Tier [{minTier} - {maxTier}]</span>
+			<NumberInput
+				elementName="tier"
+				min={minTier}
+				max={maxTier}
+				value={tier}
+				onChange={onTierChange}
+				classes={['input', 'input-bordered', 'text-xl']}
+			/>
+		</div>
+
+		<div class="col-span-2 input-group grid grid-cols-2">
+			<span>Level [{minLevel} - {maxLevel}]</span>
+			<NumberInput
+				elementName="level"
+				min={minLevel}
+				max={maxLevel}
+				value={level}
+				onChange={onLevelChange}
+				classes={['input', 'input-bordered', 'text-xl']}
+			/>
+		</div>
+	</div>
+
+	<div class="divider" />
 
 	{#if raidInfo}
 		<RaidInfoDisplay {raidInfo} />

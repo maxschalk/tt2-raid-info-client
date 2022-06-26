@@ -14,7 +14,7 @@
 {#if titanInfo.area_debuffs?.length}
 	<p>
 		<b>Area Debuff:</b>
-		{titanInfo.area_debuffs.map((b) => formatBuff(b, titanInfo.area_debuffs?.length)).join(' | ')}
+		{titanInfo.area_debuffs.map((b) => formatBuff(b)).join(' | ')}
 	</p>
 {/if}
 

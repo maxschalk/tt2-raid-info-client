@@ -6,12 +6,12 @@
 
 	import { seedFilenames } from '../stores';
 
-	const STAGE = getBASE_URLS_APIEnv();
+	const STAGE = getStageFromEnv();
 
-	const BASE_URL = BASE_URLS[STAGE];
+	const BASE_URL = BASE_URLS_API[STAGE];
 
 	export async function load({ fetch }: { fetch: ExternalFetch }) {
-		const reqUrl = new URL(`${BASE_URL}/admin/all_seed_filenames/raw`);
+		const reqUrl = new URL(`${BASE_URL}/admin/all_seed_filenames/raw?sort_order=desc`);
 		const req = new Request(reqUrl);
 
 		const res = await fetch(req);

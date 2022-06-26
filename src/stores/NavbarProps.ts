@@ -9,7 +9,7 @@ export interface NavbarProps {
 export interface NavbarLink {
 	href: string;
 	displayText: string;
-	prefetch?: boolean;
+	prefetch?: true | null;
 	children?: Omit<NavbarLink, 'children'>[];
 }
 
@@ -28,7 +28,7 @@ export function getDefaultNavbarProps() {
 			about: {
 				href: '/about',
 				displayText: 'ABOUT',
-				prefetch: true
+				prefetch: true as const
 			}
 		}
 	};

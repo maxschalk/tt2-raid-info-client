@@ -18,8 +18,6 @@
 		params: { seedISODate: string };
 		url: URL;
 	}) {
-		const currentPath = url.href;
-
 		const { seedISODate } = params;
 
 		const { filename } = filenameFromISODateString(seedISODate);
@@ -43,7 +41,6 @@
 
 		return {
 			props: {
-				currentPath,
 				seedISODate,
 				seed_prepared
 			}
@@ -54,15 +51,8 @@
 <script lang="ts">
 	import RaidSeedDisplay from '$lib/RaidSeedDisplay.svelte';
 
-	export let currentPath: string;
-
 	export let seedISODate: string;
 	export let seed_prepared: RaidSeedDataPrepared;
 </script>
-
-<a href={`${currentPath}/download/raw`}>Download Raw Seed Data</a>
-<a href={`${currentPath}/download/enhanced`}>Download Enhanced Seed Data</a>
-
-<hr />
 
 <RaidSeedDisplay {seedISODate} seed={seed_prepared} />

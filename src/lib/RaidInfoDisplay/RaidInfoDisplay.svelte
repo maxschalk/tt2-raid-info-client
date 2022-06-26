@@ -21,35 +21,37 @@
 	}, <NameToTitanMap>{});
 </script>
 
-<p><b>Raid Info {`${raidInfo.tier}-${raidInfo.level}`}</b></p>
+<div class="w-full space-y-2">
+	<h2 class="text-2xl font-bold">Raid Info {`${raidInfo.tier}-${raidInfo.level}`}</h2>
 
-{#if raidInfo.area_buffs?.length}
+	{#if raidInfo.area_buffs?.length}
+		<p>
+			<b>Area buffs:</b>
+			{raidInfo.area_buffs.map(formatBuff).join(' | ')}
+		</p>
+	{/if}
+
 	<p>
-		<b>Area buffs:</b>
-		{raidInfo.area_buffs.map(formatBuff).join(' | ')}
+		<b>Total Target HP:</b>
+		{raidInfo.raid_total_target_hp_formatted}
 	</p>
-{/if}
+</div>
 
-<p>
-	<b>Total Target HP:</b>
-	{raidInfo.raid_total_target_hp_formatted}
-</p>
+<div class="divider" />
 
-<div>
-	<b>Spawn Sequence:</b>
-
+<div class="w-full flex btn-group justify-center">
 	{#each spawnSequence as titan, index}
 		<TitanSelectionButton
 			active={titan === selectedTitan}
-			titan={`${index + 1}. ${titan}`}
+			displayText={`${index + 1}. ${titan}`}
 			onClick={() => (selectedTitan = titan)}
 		/>
 	{/each}
-
-	<hr />
-
-	<TitanDisplay
-		titanInfo={enemyInfoByTitan[selectedTitan]}
-		count={spawnSequence.filter((t) => t === selectedTitan).length}
-	/>
 </div>
+
+<div class="divider" />
+
+<TitanDisplay
+	titanInfo={enemyInfoByTitan[selectedTitan]}
+	count={spawnSequence.filter((t) => t === selectedTitan).length}
+/>
