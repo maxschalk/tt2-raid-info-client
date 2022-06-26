@@ -1,26 +1,18 @@
-/* html,
+html,
 body {
-	margin: 0;
-	padding: 0;
-
 	height: 100%;
 	width: 100%;
-
-	font-family: 'Unica One', arial, helvetica, sans-serif;
-
-	background-color: rgba(0, 0, 0, 0.03);
 }
 
 html {
 	overflow-y: scroll;
-	overflow-x: hidden;
 }
 
 #svelte {
-	position: relative;
+	height: 100%;
 }
 
-a, a:visited {
+/* a, a:visited {
 	color: rgba(0, 0, 255);
 }
 

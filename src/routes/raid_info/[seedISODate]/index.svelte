@@ -2,12 +2,12 @@
 	import type { ExternalFetch } from '@sveltejs/kit';
 	import type { RaidSeedDataEnhanced, RaidSeedDataPrepared } from 'src/types';
 
-	import { BASE_URLS } from '../../../constants';
+	import { BASE_URLS_API } from '../../../constants';
 	import { filenameFromISODateString, getStageFromEnv, prepareRaidSeed } from '../../../utils';
 
 	const STAGE = getStageFromEnv();
 
-	const BASE_URL = BASE_URLS[STAGE];
+	const BASE_URL = BASE_URLS_API[STAGE];
 
 	export async function load({
 		fetch,

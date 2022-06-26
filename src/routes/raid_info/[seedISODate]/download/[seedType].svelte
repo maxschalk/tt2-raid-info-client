@@ -1,10 +1,10 @@
 <script lang="ts" context="module">
-	import { BASE_URLS } from '../../../../constants';
+	import { BASE_URLS_API } from '../../../../constants';
 	import { filenameFromISODateString, getStageFromEnv } from '../../../../utils';
 
 	const STAGE = getStageFromEnv();
 
-	const BASE_URL = BASE_URLS[STAGE];
+	const BASE_URL = BASE_URLS_API[STAGE];
 
 	export async function load({ params }: { params: { seedISODate: string; seedType: string } }) {
 		let { seedISODate, seedType } = params;

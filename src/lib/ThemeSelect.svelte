@@ -35,7 +35,7 @@
 </script>
 
 <div class="">
-	<select data-choose-theme class="select select-bordered text-xl">
+	<select data-choose-theme class="select select-bordered select-sm text-lg">
 		<option disabled selected>Theme</option>
 
 		{#each themes as theme}

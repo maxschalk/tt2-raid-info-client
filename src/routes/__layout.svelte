@@ -1,10 +1,12 @@
 <script lang="ts" context="module">
 	import type { ExternalFetch } from '@sveltejs/kit';
 
-	import { BASE_URLS } from '../constants';
+	import { BASE_URLS_API } from '../constants';
 	import { getStageFromEnv, ISODateStringFromFilename } from '../utils';
 
-	const STAGE = getStageFromEnv();
+	import { seedFilenames } from '../stores';
+
+	const STAGE = getBASE_URLS_APIEnv();
 
 	const BASE_URL = BASE_URLS[STAGE];
 
@@ -21,13 +23,11 @@
 			};
 		}
 
-		const seedFilenames: string[] = await res.json();
+		const data: string[] = await res.json();
 
-		return {
-			props: {
-				seedFilenames
-			}
-		};
+		seedFilenames.set(data);
+
+		return {};
 	}
 </script>
 
@@ -45,8 +45,6 @@
 
 	import { navbar, type NavbarProps } from '../stores';
 
-	export let seedFilenames: string[] = [];
-
 	navbar.update((old: NavbarProps) => {
 		return {
 			...old,
@@ -54,7 +52,7 @@
 				...old.links,
 				raidInfo: {
 					...old.links.raidInfo,
-					children: seedFilenames.map(ISODateStringFromFilename).map((isoDateString) => ({
+					children: $seedFilenames.map(ISODateStringFromFilename).map((isoDateString) => ({
 						href: `/raid_info/${isoDateString}`,
 						displayText: isoDateString,
 						prefetch: true
@@ -68,7 +66,5 @@
 <Nav />
 
 <main>
-	<div class="main-app">
-		<slot />
-	</div>
+	<slot />
 </main>

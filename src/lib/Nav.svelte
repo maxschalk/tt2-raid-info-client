@@ -12,7 +12,7 @@
 	onDestroy(unsubscribe);
 </script>
 
-<div class="navbar bg-base-300 py-4 mb-8 shadow-md">
+<div class="navbar bg-base-300 py-2 shadow-md">
 	{#if props.start !== undefined}
 		<div class="navbar-start">
 			<a href={props.start.href} class="btn btn-ghost normal-case text-xl">
@@ -54,7 +54,7 @@
 								>
 							</a>
 
-							<ul class="p-2 bg-base-200 w-full">
+							<ul class="p-2 bg-base-200 w-full z-50">
 								{#each link.children as child}
 									<li>
 										<a
