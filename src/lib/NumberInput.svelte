@@ -62,17 +62,25 @@
 	<div class="absolute right-2 top-0 flex">
 		<button
 			on:click={() => changeValueBy(1)}
-			class="btn h-min p-0 m-0 outline-none border-none bg-opacity-0 hover:bg-opacity-0 hover:text-accent"
+			class="btn h-min p-0 m-0 outline-none border-none bg-opacity-0 hover:bg-opacity-0"
 		>
-			<svg class="fill-current h-6 w-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+			<svg
+				class="fill-base-content hover:fill-accent h-6 w-6"
+				xmlns="http://www.w3.org/2000/svg"
+				viewBox="0 0 24 24"
+			>
 				<path d="M7.41 16 12 11.41 16.59 16 18 14.58 12 8.58 6 14.58 7.41 16Z" />
 			</svg>
 		</button>
 		<button
 			on:click={() => changeValueBy(-1)}
-			class="btn h-min p-0 m-0 outline-none border-none bg-opacity-0 hover:bg-opacity-0 hover:text-accent"
+			class="btn h-min p-0 m-0 outline-none border-none bg-opacity-0 hover:bg-opacity-0"
 		>
-			<svg class="fill-current h-6 w-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+			<svg
+				class="fill-base-content hover:fill-accent h-6 w-6"
+				xmlns="http://www.w3.org/2000/svg"
+				viewBox="0 0 24 24"
+			>
 				<path d="M7.41 8.58 12 13.17 16.59 8.58 18 10 12 16 6 10 7.41 8.58Z" />
 			</svg>
 		</button>

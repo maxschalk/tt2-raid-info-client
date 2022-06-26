@@ -8,8 +8,12 @@
 	export let classes: string[] = [];
 
 	const activeClasses = 'active cursor-default btn-accent hover:bg-accent';
+	const inactiveClasses = 'btn-ghost bg-base-300';
 </script>
 
-<button on:click={onClick} class={`btn px-4 ${active && activeClasses} ${classes.join(' ')}`}>
+<button
+	on:click={onClick}
+	class={`btn px-4 ${active ? activeClasses : inactiveClasses}  ${classes.join(' ')}`}
+>
 	{displayText}
 </button>
