@@ -25,17 +25,27 @@ export interface EnhancedTitanPart extends TitanPart {
 	total_hp_formatted: string;
 }
 
-export interface ConsolidateditanPart {
+export interface ConsolidatedTitanPart {
 	part_id: string;
 
 	armor_hp: number;
 	body_hp: number;
 
-	armor_hp_formatted: number;
-	body_hp_formatted: number;
+	armor_hp_formatted: string;
+	body_hp_formatted: string;
 
 	armor_cursed: boolean;
 	body_cursed: boolean;
+}
+
+export interface AccumulatedTitanPart {
+	part_id: string;
+
+	armor_hp: number;
+	body_hp: number;
+
+	armor_hp_formatted: string;
+	body_hp_formatted: string;
 }
 
 export interface EnhancedTitan extends Titan {
@@ -52,7 +62,7 @@ export interface EnhancedTitan extends Titan {
 	skippable_hp: number;
 	skippable_hp_formatted: string;
 
-	consolidated_parts: ConsolidateditanPart[];
+	consolidated_parts: ConsolidatedTitanPart[];
 
 	cursed_parts: EnhancedTitanPart[];
 	number_of_cursed_parts: number;

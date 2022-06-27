@@ -92,14 +92,14 @@
 		<div class="btn-group col-span-2 grid grid-cols-2 grid-gap-4">
 			<a class="btn btn-ghost font-bold shadow gap-2" href={`${$page.url.href}/download/raw`}>
 				<CloudDownloadOutline width="20" height="20" />
-				Download Raw Seed Data
+				Download Raw Seed
 			</a>
 
 			<a
 				class="btn btn-neutral font-bold shadow gap-2"
 				href={`${$page.url.href}/download/enhanced`}
 			>
-				Download Enhanced Seed Data
+				Download Enhanced Seed
 				<CloudDownload width="20" height="20" />
 			</a>
 		</div>

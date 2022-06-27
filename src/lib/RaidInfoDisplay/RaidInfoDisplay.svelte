@@ -39,14 +39,18 @@
 
 <div class="divider" />
 
-<div class="w-full flex btn-group justify-center">
-	{#each spawnSequence as titan, index}
-		<TitanSelectionButton
-			active={titan === selectedTitan}
-			displayText={`${index + 1}. ${titan}`}
-			onClick={() => (selectedTitan = titan)}
-		/>
-	{/each}
+<div class="w-full space-y-4">
+	<h2 class="text-2xl font-bold">Spawn Sequence</h2>
+
+	<div class="w-full flex btn-group">
+		{#each spawnSequence as titan, index}
+			<TitanSelectionButton
+				active={titan === selectedTitan}
+				displayText={`${index + 1}. ${titan}`}
+				onClick={() => (selectedTitan = titan)}
+			/>
+		{/each}
+	</div>
 </div>
 
 <div class="divider" />

@@ -3,4 +3,7 @@ export * from './seedFilenames';
 export * from './prepareRaidSeed';
 export * from './numberStringMinMax';
 export * from './formatBuff';
+export * from './formatPartID';
 export * from './capitalize';
+export * from './getEnumKeyByEnumValue';
+export * from './scrollIntoView';
