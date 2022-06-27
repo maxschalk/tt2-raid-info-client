@@ -109,7 +109,6 @@
 
 	<div class="grid grid-cols-2 gap-3 items-center justify-items-center">
 		<div class="col-span-2 input-group grid grid-cols-2">
-			<span>Tier [{minTier} - {maxTier}]</span>
 			<NumberInput
 				elementName="tier"
 				min={minTier}
@@ -118,10 +117,10 @@
 				onChange={onTierChange}
 				classes={['input', 'input-bordered', 'text-xl']}
 			/>
+			<span class="font-bold">Tier [{minTier} - {maxTier}]</span>
 		</div>
 
 		<div class="col-span-2 input-group grid grid-cols-2">
-			<span>Level [{minLevel} - {maxLevel}]</span>
 			<NumberInput
 				elementName="level"
 				min={minLevel}
@@ -130,6 +129,7 @@
 				onChange={onLevelChange}
 				classes={['input', 'input-bordered', 'text-xl']}
 			/>
+			<span class="font-bold">Level [{minLevel} - {maxLevel}]</span>
 		</div>
 	</div>
 

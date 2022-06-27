@@ -82,9 +82,3 @@
 		<ThemeSelect />
 	</div>
 </div>
-
-<style>
-	a.active {
-		background-color: hsl(var(--a));
-	}
-</style>
