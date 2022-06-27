@@ -2,7 +2,7 @@ import type {
 	RaidSeedDataPrepared,
 	RaidSeedData,
 	RaidInfoDataRaw,
-	RaidInfoDataEnhanced
+	RaidInfoDataEnhanced,
 } from 'src/types';
 
 export function prepareRaidSeed(seed: RaidSeedData): RaidSeedDataPrepared {
@@ -30,7 +30,7 @@ export function prepareRaidSeed(seed: RaidSeedData): RaidSeedDataPrepared {
 
 		data: seed,
 
-		data_by_tier_level
+		data_by_tier_level,
 	};
 
 	return prepared;

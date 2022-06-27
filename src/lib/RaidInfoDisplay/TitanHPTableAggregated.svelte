@@ -5,7 +5,7 @@
 		AGGREGATED_TO_BASE_PART_IDS,
 		TITAN_PART_REPRS,
 		type AccumulatedTitanPart,
-		type EnhancedTitan
+		type EnhancedTitan,
 	} from '../../types';
 
 	export let titanInfo: EnhancedTitan;
@@ -34,7 +34,7 @@
 			body_hp: bodyHP,
 
 			armor_hp_formatted: formatHP(armorHP),
-			body_hp_formatted: formatHP(bodyHP)
+			body_hp_formatted: formatHP(bodyHP),
 		});
 	}
 

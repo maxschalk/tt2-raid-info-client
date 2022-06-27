@@ -12,11 +12,9 @@
 	export async function load({
 		fetch,
 		params,
-		url,
 	}: {
 		fetch: ExternalFetch;
 		params: { seedISODate: string };
-		url: URL;
 	}) {
 		const { seedISODate } = params;
 

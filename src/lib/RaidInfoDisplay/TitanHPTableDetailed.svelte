@@ -1,10 +1,5 @@
 <script lang="ts">
-	import {
-		TITAN_PART_REPRS,
-		BASE_TITAN_PART_IDS,
-		type EnhancedTitan,
-		type ConsolidatedTitanPart
-	} from '../../types';
+	import { TITAN_PART_REPRS, BASE_TITAN_PART_IDS, type EnhancedTitan } from '../../types';
 	import { getEnumKeyByEnumValue } from '../../utils';
 
 	export let titanInfo: EnhancedTitan;
@@ -31,7 +26,9 @@
 			<th class="text-lg" class:text-success={tableViewHasColors}>Body HP</th>
 
 			{#if titanInfo.number_of_cursed_parts > 0}
-				<th class="text-lg text-center" class:text-error={tableViewHasColors}> Cursed Armor </th>
+				<th class="text-lg text-center" class:text-error={tableViewHasColors}>
+					Cursed Armor
+				</th>
 			{/if}
 		</tr>
 	</thead>

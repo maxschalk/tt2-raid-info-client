@@ -19,7 +19,7 @@
 
 		return {
 			status: 302,
-			redirect: downloadUrl
+			redirect: downloadUrl,
 		};
 	}
 </script>

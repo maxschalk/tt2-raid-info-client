@@ -7,7 +7,7 @@ export function filenameFromISODateString(isoDateString: string) {
 	return {
 		name,
 		suffix,
-		filename: `${name}${suffix}`
+		filename: `${name}${suffix}`,
 	};
 }
 

@@ -6,7 +6,7 @@
 	export let max: number;
 	export let value: number;
 	export let onChange: (value: number) => void;
-	export let preventDefault: boolean = false;
+	export let preventDefault = false;
 
 	export let classes: string[] = [];
 

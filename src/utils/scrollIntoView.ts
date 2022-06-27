@@ -7,6 +7,6 @@ export function scrollIntoView(targetSelector: string) {
 
 	el.scrollIntoView({
 		behavior: 'smooth',
-		block: 'end'
+		block: 'end',
 	});
 }

@@ -19,7 +19,7 @@
 		if (!res.ok) {
 			return {
 				status: res.status,
-				error: new Error(`Could not fetch seeds from ${reqUrl}`)
+				error: new Error(`Could not fetch seeds from ${reqUrl}`),
 			};
 		}
 
@@ -52,13 +52,15 @@
 				...old.links,
 				raidInfo: {
 					...old.links.raidInfo,
-					children: $seedFilenames.map(ISODateStringFromFilename).map((isoDateString) => ({
-						href: `/raid_info/${isoDateString}`,
-						displayText: isoDateString,
-						prefetch: true
-					}))
-				}
-			}
+					children: $seedFilenames
+						.map(ISODateStringFromFilename)
+						.map((isoDateString) => ({
+							href: `/raid_info/${isoDateString}`,
+							displayText: isoDateString,
+							prefetch: true,
+						})),
+				},
+			},
 		};
 	});
 </script>

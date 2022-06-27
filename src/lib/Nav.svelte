@@ -53,7 +53,9 @@
 									height="20"
 									viewBox="0 0 24 24"
 								>
-									<path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z" />
+									<path
+										d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"
+									/>
 								</svg>
 							</a>
 
@@ -64,7 +66,9 @@
 											href={child.href}
 											sveltekit:prefetch={child.prefetch}
 											class:active={$page.url.pathname.endsWith(child.href)}
-											class:font-bold={$page.url.pathname.endsWith(child.href)}
+											class:font-bold={$page.url.pathname.endsWith(
+												child.href
+											)}
 										>
 											{child.displayText}
 										</a>

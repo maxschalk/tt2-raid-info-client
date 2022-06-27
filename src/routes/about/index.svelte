@@ -94,7 +94,7 @@
 			imgAlt="FastAPI Logo"
 			links={[
 				{ text: 'Documentation', href: BASE_URL },
-				{ text: 'GitHub', href: 'https://github.com/riskypenguin/tt2-raid-info-client' },
+				{ text: 'GitHub', href: 'https://github.com/riskypenguin/tt2-raid-info-api' },
 			]}
 		>
 			<svelte:fragment slot="title">Custom backend</svelte:fragment>

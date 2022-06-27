@@ -18,19 +18,19 @@ export function getDefaultNavbarProps() {
 		titleMain: 'TT2 Raid Info',
 		start: {
 			href: '/',
-			displayText: 'HOME'
+			displayText: 'HOME',
 		},
 		links: {
 			raidInfo: {
 				href: '/raid_info',
-				displayText: 'RAID SEEDS'
+				displayText: 'RAID SEEDS',
 			},
 			about: {
 				href: '/about',
 				displayText: 'ABOUT',
-				prefetch: true as const
-			}
-		}
+				prefetch: true as const,
+			},
+		},
 	};
 }
 

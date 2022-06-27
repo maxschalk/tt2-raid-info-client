@@ -3,7 +3,6 @@
 	"tabWidth": 4,
 	"singleQuote": true,
 	"trailingComma": "es5",
-	"semicolon": true,
 	"printWidth": 100,
 	"bracketSpacing": true,
 	"bracketSameLine": false,

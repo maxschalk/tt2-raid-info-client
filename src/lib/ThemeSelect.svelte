@@ -39,7 +39,7 @@
 		{ name: 'aqua', mode: 'light', enabled: false },
 		{ name: 'cmyk', mode: 'light', enabled: false },
 		{ name: 'acid', mode: 'light', enabled: false },
-		{ name: 'lemonade', mode: 'light', enabled: false }
+		{ name: 'lemonade', mode: 'light', enabled: false },
 	];
 </script>
 
