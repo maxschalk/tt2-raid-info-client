@@ -27,9 +27,9 @@
 	<tbody>
 		{#each titanInfo.consolidated_parts as part}
 			<tr>
-				<td class="text-left"
-					>{TITAN_PART_REPRS[getEnumKeyByEnumValue(BASE_TITAN_PART_IDS, part.part_id)]}</td
-				>
+				<td class="text-left">
+					{TITAN_PART_REPRS[getEnumKeyByEnumValue(BASE_TITAN_PART_IDS, part.part_id)]}
+				</td>
 
 				{#if titanInfo.total_armor_hp > 0}
 					<td class="text-info">{part.armor_hp_formatted}</td>
