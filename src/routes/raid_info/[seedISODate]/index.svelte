@@ -12,7 +12,7 @@
 	export async function load({
 		fetch,
 		params,
-		url
+		url,
 	}: {
 		fetch: ExternalFetch;
 		params: { seedISODate: string };
@@ -31,7 +31,7 @@
 		if (!res.ok) {
 			return {
 				status: res.status,
-				error: new Error(`Could not fetch seed from ${reqUrl}`)
+				error: new Error(`Could not fetch seed from ${reqUrl}`),
 			};
 		}
 
@@ -42,17 +42,67 @@
 		return {
 			props: {
 				seedISODate,
-				seed_prepared
-			}
+				seed_prepared,
+			},
 		};
 	}
 </script>
 
 <script lang="ts">
+	import { page } from '$app/stores';
+	import { navbar, type NavbarLink } from '../../../stores';
+
 	import RaidSeedDisplay from '$lib/RaidSeedDisplay.svelte';
+
+	import ArrowLeftBoldCircle from 'svelte-material-icons/ArrowLeftBoldCircle.svelte';
+	import ArrowRightBoldCircle from 'svelte-material-icons/ArrowRightBoldCircle.svelte';
+	import { onDestroy } from 'svelte';
 
 	export let seedISODate: string;
 	export let seed_prepared: RaidSeedDataPrepared;
+
+	let raidSeedLinks: NavbarLink[];
+	const unsubscribe = navbar.subscribe(
+		(nb) => (raidSeedLinks = nb.links.raidInfo?.children ?? [])
+	);
+
+	let prevLink: NavbarLink | undefined;
+	$: prevLink =
+		raidSeedLinks[raidSeedLinks.findIndex((lnk) => lnk.displayText === seedISODate) + 1];
+
+	let nextLink: NavbarLink | undefined;
+	$: nextLink =
+		raidSeedLinks[raidSeedLinks.findIndex((lnk) => lnk.displayText === seedISODate) - 1];
+
+	onDestroy(unsubscribe);
 </script>
 
-<RaidSeedDisplay {seedISODate} seed={seed_prepared} />
+<div class="container max-w-4xl flex flex-col items-center">
+	<div class="btn-group max-w-2xl grid grid-cols-3">
+		<a
+			class="btn btn-secondary font-bold shadow gap-2"
+			href={prevLink?.href}
+			class:btn-disabled={prevLink === undefined}
+		>
+			<ArrowLeftBoldCircle width="30" height="30" />
+			{prevLink?.displayText ?? ''}
+		</a>
+
+		<button href={$page.url.href} class="btn btn-disabled bg-transparent text-base-content">
+			{seedISODate}
+		</button>
+
+		<a
+			class="btn btn-primary font-bold shadow gap-2"
+			href={nextLink?.href}
+			class:btn-disabled={nextLink === undefined}
+		>
+			{nextLink?.displayText ?? ''}
+			<ArrowRightBoldCircle width="30" height="30" />
+		</a>
+	</div>
+
+	<div class="divider" />
+
+	<RaidSeedDisplay seed={seed_prepared} {seedISODate} />
+</div>

@@ -1,4 +1,5 @@
 <script lang="ts">
+	import AboutCard from '$lib/AboutCard.svelte';
 	import { BASE_URLS } from '../../constants';
 	import { getStageFromEnv } from '../../utils';
 
@@ -32,83 +33,71 @@
 
 <!-- TODO Refactor into card component -->
 <div class="grid grid-cols-2 gap-8">
-	<div class="card lg:card-side bg-base-200 shadow-lg">
-		<div class="card-body space-y-4">
-			<h2 class="card-title">Powered by SvelteKit</h2>
-			<p>
-				Svelte is 2022's
-				<a
-					href="https://insights.stackoverflow.com/survey/2021#section-most-loved-dreaded-and-wanted-web-frameworks"
-					target="_blank"
-					class="link "
-				>
-					most loved web framework
-				</a>
-			</p>
-			<div class="card-actions justify-start">
-				<a href="https://svelte.dev/" target="_blank" class="btn btn-primary"> Svelte </a>
-				<a href="https://kit.svelte.dev/" target="_blank" class="btn btn-secondary"> SvelteKit </a>
-			</div>
-		</div>
+	<AboutCard
+		imgSrc="svelte-logo.png"
+		imgAlt="Svelte Logo"
+		links={[
+			{ text: 'Svelte', href: 'https://svelte.dev/' },
+			{ text: 'SvelteKit', href: 'https://kit.svelte.dev/' },
+		]}
+		classes={['col-span-2']}
+	>
+		<svelte:fragment slot="title">Powered by SvelteKit</svelte:fragment>
+		<p slot="body">
+			SvelteKit is a framework for building high-performance web apps using Svelte,
+			<a
+				href="https://insights.stackoverflow.com/survey/2021#section-most-loved-dreaded-and-wanted-web-frameworks"
+				target="_blank"
+				class="link "
+			>
+				2022's most loved web framework
+			</a>
+		</p>
+	</AboutCard>
 
-		<figure class="bg-base-300 p-4">
-			<img src="svelte-logo.png" alt="Svelte Logo" class="w-20" />
-		</figure>
-	</div>
+	<AboutCard
+		imgSrc="tailwindcss-mark.svg"
+		imgAlt="TailwindCSS Logo"
+		links={[
+			{ text: 'DaisyUI', href: 'https://daisyui.com/' },
+			{ text: 'TailwindCSS', href: 'https://tailwindcss.com/' },
+		]}
+		classes={['col-span-2']}
+	>
+		<svelte:fragment slot="title">Designed with TailwindCSS & DaisyUI</svelte:fragment>
 
-	<div class="card lg:card-side bg-base-200 shadow-lg">
-		<div class="card-body space-y-4">
-			<h2 class="card-title">Designed with TailwindCSS & DaisyUI</h2>
-			<p>DaisyUI is a free and open-source TailwindCSS component library</p>
-			<div class="card-actions justify-start">
-				<a href="https://daisyui.com/" target="_blank" class="btn btn-primary"> DaisyUI </a>
-				<a href="https://tailwindcss.com/" target="_blank" class="btn btn-secondary">
-					TailwindCSS
-				</a>
-			</div>
-		</div>
-		<figure class="bg-base-300 p-4">
-			<img src="tailwindcss-mark.svg" alt="TailwindCSS Logo" class="w-20" />
-		</figure>
-	</div>
+		<p slot="body">DaisyUI is a free and open-source TailwindCSS component library</p>
+	</AboutCard>
 
-	<div class="card lg:card-side bg-base-200 shadow-lg">
-		<div class="card-body space-y-4">
-			<h2 class="card-title">Open Source</h2>
-			<p>Feel free to take a stroll around the code or contribute by submitting a Pull Request</p>
-			<div class="card-actions justify-start">
-				<a
-					href="https://github.com/riskypenguin/tt2-raid-info-client"
-					target="_blank"
-					class="btn btn-primary"
-				>
-					Check it out on GitHub
-				</a>
-			</div>
-		</div>
+	<AboutCard
+		imgSrc="Octocat.png"
+		imgAlt="GitHub Octocat"
+		links={[
+			{
+				text: 'Check it out on GitHub',
+				href: 'https://github.com/riskypenguin/tt2-raid-info-client',
+			},
+		]}
+	>
+		<svelte:fragment slot="title">Open Source</svelte:fragment>
 
-		<figure class="bg-base-300 p-4">
-			<img src="Octocat.png" alt="GitHub Mark" class="w-20" />
-		</figure>
-	</div>
+		<p slot="body">Take a stroll around the code or contribute by submitting a Pull Request</p>
+	</AboutCard>
 
-	<div class="card lg:card-side bg-base-200 shadow-lg">
-		<div class="card-body space-y-4">
-			<h2 class="card-title">Custom backend</h2>
-			<p>All raid data is served by the TT2 Raid Info API</p>
-			<div class="card-actions justify-start">
-				<a href={BASE_URL} target="_blank" class="btn btn-primary"> Documentation </a>
+	<AboutCard
+		imgSrc="fastapi.svg"
+		imgAlt="FastAPI Logo"
+		links={[
+			{ text: 'Documentation', href: BASE_URL },
+			{ text: 'GitHub', href: 'https://github.com/riskypenguin/tt2-raid-info-client' },
+		]}
+	>
+		<svelte:fragment slot="title">Custom backend</svelte:fragment>
 
-				<a
-					href="https://github.com/riskypenguin/tt2-raid-info-api"
-					target="_blank"
-					class="btn btn-secondary"
-				>
-					GitHub
-				</a>
-			</div>
-		</div>
-	</div>
+		<p slot="body" class="whitespace-pre-line">
+			All raid data is served by the TT2 Raid Info API {'\n'} Built with Python & FastAPI
+		</p>
+	</AboutCard>
 </div>
 
 <div class="divider" />

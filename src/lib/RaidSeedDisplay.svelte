@@ -21,13 +21,21 @@
 
 	Object.keys(seed.data_by_tier_level).forEach((tr) => {
 		inputOptionsTierLevel[tr] = {
-			min: Math.min(...Object.keys(seed.data_by_tier_level[tr]).map((val) => parseInt(val, 10))),
-			max: Math.max(...Object.keys(seed.data_by_tier_level[tr]).map((val) => parseInt(val, 10)))
+			min: Math.min(
+				...Object.keys(seed.data_by_tier_level[tr]).map((val) => parseInt(val, 10))
+			),
+			max: Math.max(
+				...Object.keys(seed.data_by_tier_level[tr]).map((val) => parseInt(val, 10))
+			),
 		};
 	});
 
-	const minTier = Math.min(...Object.keys(seed.data_by_tier_level).map((val) => parseInt(val, 10)));
-	const maxTier = Math.max(...Object.keys(seed.data_by_tier_level).map((val) => parseInt(val, 10)));
+	const minTier = Math.min(
+		...Object.keys(seed.data_by_tier_level).map((val) => parseInt(val, 10))
+	);
+	const maxTier = Math.max(
+		...Object.keys(seed.data_by_tier_level).map((val) => parseInt(val, 10))
+	);
 
 	let minLevel = inputOptionsTierLevel[tier].min;
 
@@ -55,9 +63,8 @@
 	}
 </script>
 
-<div class="container max-w-4xl flex flex-col items-center">
+<div class="w-full flex flex-col items-center">
 	<div class="grid grid-cols-2 gap-3 items-center justify-items-center">
-		<!-- TODO PREV | NEXT Buttons -->
 		<p class="font-bold">Seed {seedISODate}</p>
 
 		<p class="font-bold">

@@ -26,7 +26,7 @@
 
 		await tick();
 
-		scrollIntoView('#titan-data');
+		scrollIntoView('#titan-data-end');
 	}
 </script>
 
@@ -81,25 +81,26 @@
 
 	<div class="divider" />
 
-	<div class="flex justify-between items-center w-full ">
-		<label class="swap btn">
-			<input
-				type="checkbox"
-				checked={tableDataIsAggregated}
-				on:click={() => toggleSetTableDataAggregated()}
-			/>
-			<div class="swap-off">Show aggregated parts</div>
-			<div class="swap-on">Show detailed parts</div>
-		</label>
+	<div>
+		<svelte:component
+			this={tableDataIsAggregated ? TitanHPTableAggregated : TitanHpTableDetailed}
+			{titanInfo}
+			{tableViewIsSpaced}
+			{tableViewHasColors}
+			{tableViewHighlightSkippable}
+		/>
 	</div>
 
-	<div class="flex justify-between space-x-2 px-3 py-1 0">
+	<div
+		class="menu menu-horizontal rounded-box bg-base-200 w-full flex justify-evenly items-center"
+	>
 		<div class="form-control">
 			<label class="label cursor-pointer space-x-2">
 				<input type="checkbox" bind:checked={tableViewIsSpaced} class="checkbox" />
 				<span class="label-text text-lg">Space out columns</span>
 			</label>
 		</div>
+
 		<div class="divider divider-horizontal" />
 
 		<div class="form-control">
@@ -114,20 +115,26 @@
 		<div class="flex justify-evenly space-x-4 px-3 py-1 0">
 			<div class="form-control">
 				<label class="label cursor-pointer space-x-2">
-					<input type="checkbox" bind:checked={tableViewHighlightSkippable} class="checkbox" />
+					<input
+						type="checkbox"
+						bind:checked={tableViewHighlightSkippable}
+						class="checkbox"
+					/>
 					<span class="label-text text-lg">Highlight skippable parts</span>
 				</label>
 			</div>
 		</div>
 	</div>
 
-	<div id="titan-data">
-		<svelte:component
-			this={tableDataIsAggregated ? TitanHPTableAggregated : TitanHpTableDetailed}
-			{titanInfo}
-			{tableViewIsSpaced}
-			{tableViewHasColors}
-			{tableViewHighlightSkippable}
-		/>
+	<div class="flex justify-between items-center w-full" id="titan-data-end">
+		<label class="swap btn">
+			<input
+				type="checkbox"
+				checked={tableDataIsAggregated}
+				on:click={() => toggleSetTableDataAggregated()}
+			/>
+			<div class="swap-off">Show aggregated parts</div>
+			<div class="swap-on">Show detailed parts</div>
+		</label>
 	</div>
 </div>
