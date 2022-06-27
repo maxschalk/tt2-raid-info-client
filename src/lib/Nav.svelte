@@ -12,7 +12,7 @@
 	onDestroy(unsubscribe);
 </script>
 
-<div class="navbar bg-base-300 py-2 shadow-md">
+<div class="navbar h-20 fixed bg-base-300 py-2 shadow-md z-50">
 	{#if props.start !== undefined}
 		<div class="navbar-start">
 			<a href={props.start.href} sveltekit:prefetch class="btn btn-ghost normal-case text-xl">
@@ -57,7 +57,7 @@
 								</svg>
 							</a>
 
-							<ul class="p-2 bg-base-300 w-full z-50">
+							<ul class="p-2 bg-base-300 w-full">
 								{#each link.children as child}
 									<li>
 										<a

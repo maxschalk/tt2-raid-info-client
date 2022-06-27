@@ -10,3 +10,4 @@ declare namespace App {
 }
 
 declare module 'theme-change';
+declare module 'svelte-material-icons/*';

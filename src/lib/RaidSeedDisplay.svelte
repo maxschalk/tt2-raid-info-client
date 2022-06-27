@@ -74,18 +74,14 @@
 		<p>
 			{seed.raid_info_valid_from.split('T').join(' ')}
 			(
-			<a href="https://time.is/GMT+2" target="_blank" class="link link-hover link-accent">
-				GMT+2
-			</a>
+			<a href="https://time.is/GMT+2" target="_blank" class="link"> GMT+2 </a>
 			)
 		</p>
 		<b>Expires at:</b>
 		<p>
 			{seed.raid_info_expire_at.split('T').join(' ')}
 			(
-			<a href="https://time.is/GMT+2" target="_blank" class="link link-hover link-accent">
-				GMT+2
-			</a>
+			<a href="https://time.is/GMT+2" target="_blank" class="link"> GMT+2 </a>
 			)
 		</p>
 

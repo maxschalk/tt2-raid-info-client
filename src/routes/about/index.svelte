@@ -11,14 +11,12 @@
 	<p>This website was built to give players easy access to up-to-date Tap Titans 2 raid data.</p>
 	<p>
 		All the data comes from GameHives
-		<a href="https://discord.gg/gamehive" target="_blank" class="link link-hover link-accent">
-			Discord Server
-		</a>
+		<a href="https://discord.gg/gamehive" target="_blank" class="link"> Discord Server </a>
 		, is posted to a server by a
 		<a
 			href="https://github.com/riskypenguin/tt2-raid-info-discord-bot"
 			target="_blank"
-			class="link link-hover link-accent"
+			class="link"
 		>
 			Discord bot
 		</a>
@@ -26,7 +24,7 @@
 	</p>
 	<p>
 		If you need programmatic access to the raid data, take a look at the
-		<a href={BASE_URL} target="_blank" class="link link-hover link-accent">API</a>.
+		<a href={BASE_URL} target="_blank" class="link">API</a>.
 	</p>
 </div>
 
@@ -42,7 +40,7 @@
 				<a
 					href="https://insights.stackoverflow.com/survey/2021#section-most-loved-dreaded-and-wanted-web-frameworks"
 					target="_blank"
-					class="link link-accent link-hover"
+					class="link "
 				>
 					most loved web framework
 				</a>

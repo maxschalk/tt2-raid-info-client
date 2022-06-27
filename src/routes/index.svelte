@@ -7,11 +7,7 @@
 
 			<p class="max-w-md">
 				Find and explore the most recent raid rolls for Gamehives mobile game
-				<a
-					href="https://www.gamehive.com/games/tap-titans-2"
-					target="_blank"
-					class="link link-accent link-hover"
-				>
+				<a href="https://www.gamehive.com/games/tap-titans-2" target="_blank" class="link ">
 					Tap Titans 2
 				</a>
 			</p>
