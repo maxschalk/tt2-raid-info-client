@@ -1,8 +1,8 @@
 import type { Stage } from '../types';
 
 export const BASE_URLS: { [K in Stage]: string } = {
-	dev: 'http://http://riskypengu.in',
-	prod: 'https://tt2-data.herokuapp.com',
+	dev: 'http://localhost:5000',
+	prod: 'http://http://riskypengu.in',
 };
 
 export const BASE_URLS_API: { [K in Stage]: string } = {
