@@ -63,7 +63,9 @@
 		}
 
 		if (file.type !== 'application/json') {
-			$error = `${file.type} files are not supported, please upload a .json file`;
+			const filenameParts = file.name.split('.');
+			const suffix = filenameParts[filenameParts.length - 1];
+			$error = `${file.type || suffix} files are not supported, please upload a JSON-file`;
 
 			return;
 		}
@@ -128,7 +130,7 @@
 
 	<div class="w-full flex flex-col items-center space-y-2">
 		<label class="block text-md text-base-content" for="raid_seed">
-			Upload raw raid seed (.json files only)
+			Upload raw raid seed
 		</label>
 
 		<input
