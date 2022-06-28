@@ -10,7 +10,7 @@
 			{#each $navbar.links.raidInfo.children as raidInfoLink}
 				<li class="hover:text-accent">
 					<a href={raidInfoLink.href} sveltekit:prefetch={raidInfoLink.prefetch}>
-						Raid Seed {raidInfoLink.displayText}
+						{raidInfoLink.displayText}
 					</a>
 				</li>
 			{/each}

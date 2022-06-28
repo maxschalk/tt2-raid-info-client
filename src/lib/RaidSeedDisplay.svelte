@@ -8,8 +8,10 @@
 	import CloudDownloadOutline from 'svelte-material-icons/CloudDownloadOutline.svelte';
 	import CloudDownload from 'svelte-material-icons/CloudDownload.svelte';
 
-	export let seedISODate: string;
+	export let seedIdentifier: string;
 	export let seed: RaidSeedDataPrepared;
+	export let canDownloadRaw = true;
+	export let canDownloadEnhanced = true;
 
 	let tier = 1;
 	let level = 1;
@@ -65,7 +67,7 @@
 
 <div class="w-full flex flex-col items-center">
 	<div class="grid grid-cols-2 gap-3 items-center justify-items-center">
-		<p class="font-bold">Seed {seedISODate}</p>
+		<p class="font-bold">Seed {seedIdentifier}</p>
 
 		<p class="font-bold">
 			{#if new Date(seed.raid_info_valid_from) > new Date()}
@@ -93,14 +95,19 @@
 		</p>
 
 		<div class="btn-group col-span-2 grid grid-cols-2 grid-gap-4">
-			<a class="btn btn-ghost font-bold shadow gap-2" href={`${$page.url.href}/download/raw`}>
+			<a
+				href={`${$page.url.href}/download/raw`}
+				class="btn btn-ghost font-bold shadow gap-2"
+				class:btn-disabled={!canDownloadRaw}
+			>
 				<CloudDownloadOutline width="20" height="20" />
 				Download Raw Seed
 			</a>
 
 			<a
-				class="btn btn-neutral font-bold shadow gap-2"
 				href={`${$page.url.href}/download/enhanced`}
+				class="btn btn-neutral font-bold shadow gap-2"
+				class:btn-disabled={!canDownloadEnhanced}
 			>
 				Download Enhanced Seed
 				<CloudDownload width="20" height="20" />

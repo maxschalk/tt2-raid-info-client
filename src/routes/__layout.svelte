@@ -4,7 +4,7 @@
 	import { BASE_URLS_API } from '../constants';
 	import { getStageFromEnv, ISODateStringFromFilename } from '../utils';
 
-	import { seedFilenames } from '../stores';
+	import { seedFilenames, type NavbarLink } from '../stores';
 
 	const STAGE = getStageFromEnv();
 
@@ -52,13 +52,20 @@
 				...old.links,
 				raidInfo: {
 					...old.links.raidInfo,
-					children: $seedFilenames
-						.map(ISODateStringFromFilename)
-						.map((isoDateString) => ({
-							href: `/raid_info/${isoDateString}`,
-							displayText: isoDateString,
+					children: [
+						...(<NavbarLink[]>(
+							$seedFilenames.map(ISODateStringFromFilename).map((isoDateString) => ({
+								href: `/raid_info/${isoDateString}`,
+								displayText: isoDateString,
+								prefetch: true,
+							}))
+						)),
+						{
+							href: '/raid_info/custom',
+							displayText: 'Upload own',
 							prefetch: true,
-						})),
+						},
+					],
 				},
 			},
 		};

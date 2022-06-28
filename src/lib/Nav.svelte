@@ -61,7 +61,7 @@
 
 							<ul class="p-2 bg-base-300 w-full">
 								{#each link.children as child}
-									<li>
+									<li class="w-full">
 										<a
 											href={child.href}
 											sveltekit:prefetch={child.prefetch}

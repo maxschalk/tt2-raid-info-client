@@ -66,11 +66,11 @@
 
 	let prevLink: NavbarLink | undefined;
 	$: prevLink =
-		raidSeedLinks[raidSeedLinks.findIndex((lnk) => lnk.displayText === seedISODate) + 1];
+		raidSeedLinks[raidSeedLinks.findIndex((lnk) => $page.url.href.endsWith(lnk.href)) + 1];
 
 	let nextLink: NavbarLink | undefined;
 	$: nextLink =
-		raidSeedLinks[raidSeedLinks.findIndex((lnk) => lnk.displayText === seedISODate) - 1];
+		raidSeedLinks[raidSeedLinks.findIndex((lnk) => $page.url.href.endsWith(lnk.href)) - 1];
 
 	onDestroy(unsubscribe);
 </script>
@@ -102,5 +102,5 @@
 
 	<div class="divider" />
 
-	<RaidSeedDisplay seed={seed_prepared} {seedISODate} />
+	<RaidSeedDisplay seed={seed_prepared} seedIdentifier={seedISODate} />
 </div>
