@@ -14,12 +14,30 @@
 		const reqUrl = new URL(`${BASE_URL}/admin/all_seed_filenames/raw?sort_order=desc`);
 		const req = new Request(reqUrl);
 
-		const res = await fetch(req);
+		let res;
+		try {
+			res = await fetch(req);
+		} catch (e) {
+			return {
+				error: new Error(`Something went wrong getting data from ${reqUrl}:\n${e}`),
+			};
+		}
 
 		if (!res.ok) {
 			return {
 				status: res.status,
-				error: new Error(`Could not fetch seeds from ${reqUrl}`),
+				error: new Error(`Could not fetch seeds from ${reqUrl}:\n${res}`),
+			};
+		}
+
+		if (
+			res.headers.get('content-type') !== null &&
+			res.headers.get('content-type')?.includes('text/html')
+		) {
+			seedFilenames.set([]);
+
+			return {
+				error: new Error(`Request at ${reqUrl} returned HTML:\n${await res.text()}`),
 			};
 		}
 
@@ -40,6 +58,9 @@
 	onMount(() => {
 		themeChange(false);
 	});
+
+	export let error: Error;
+	export let errorHTML: string;
 
 	import Nav from '$lib/Nav.svelte';
 
