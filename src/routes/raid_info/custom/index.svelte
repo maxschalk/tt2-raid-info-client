@@ -25,17 +25,13 @@
 
 {#if $error}
 	<h2 class="text-xl text-error whitespace-pre-line">{$error}</h2>
-{/if}
-
-{#if $loading}
-	<LoadingSpinner size={20} />
-{/if}
-
-{#if seedDataExists($seedData)}
+{:else if seedDataExists($seedData)}
 	<RaidSeedDisplay
 		seed={$seedData}
 		seedIdentifier="Custom"
 		canDownloadRaw={false}
 		canDownloadEnhanced={false}
 	/>
+{:else if $loading}
+	<LoadingSpinner size={20} />
 {/if}

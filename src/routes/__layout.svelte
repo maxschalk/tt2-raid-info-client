@@ -8,11 +8,12 @@
 	import { seedFilenames, type NavbarLink } from '../stores';
 
 	export async function load({ fetch }: { fetch: ExternalFetch }) {
-		getSeedFilenames(SortOrder.DESCENDING, fetch)
-			.then((data) => {
-				seedFilenames.set(<string[]>data);
-			})
-			.catch(() => seedFilenames.set([]));
+		try {
+			const data = await getSeedFilenames(SortOrder.DESCENDING, fetch);
+			seedFilenames.set(<string[]>data);
+		} catch (e) {
+			seedFilenames.set([]);
+		}
 
 		return {};
 	}

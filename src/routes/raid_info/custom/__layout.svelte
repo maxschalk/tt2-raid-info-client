@@ -14,18 +14,6 @@
 	import ArrowRight from 'svelte-material-icons/ArrowRightBoldCircleOutline.svelte';
 	import Upload from 'svelte-material-icons/FileUploadOutline.svelte';
 
-	let raidSeedLinks: NavbarLink[] = $navbar.links.raidInfo?.children ?? [];
-
-	let prevLink: NavbarLink | undefined;
-	$: prevLink =
-		raidSeedLinks[raidSeedLinks.findIndex((lnk) => $page.url.href.endsWith(lnk.href)) + 1];
-
-	let nextLink: NavbarLink | undefined;
-	$: nextLink =
-		raidSeedLinks[raidSeedLinks.findIndex((lnk) => $page.url.href.endsWith(lnk.href)) - 1];
-
-	let fileUploadElement: HTMLInputElement;
-
 	let loading: Writable<boolean> = writable(false);
 	let seedData: Writable<RaidSeedDataPrepared | Record<string, never>> = writable({});
 	let error: Writable<string> = writable('');
@@ -34,8 +22,9 @@
 	setContext('seedData', seedData);
 	setContext('error', error);
 
-	let getPreparedSeed: () => Promise<RaidSeedDataPrepared>;
-	$: getPreparedSeed = async () => {
+	let fileUploadElement: HTMLInputElement;
+
+	async function getPreparedSeed(): Promise<RaidSeedDataPrepared> {
 		if (fileUploadElement === undefined) {
 			throw new Error('Something went wrong');
 		}
@@ -58,13 +47,13 @@
 
 		JSON.parse(data); // throws proper error for invalid JSON without server communication
 
-		return postEnhanceSeedData(data, fetch).then((data) =>
-			prepareRaidSeed(<RaidSeedDataEnhanced>data)
-		);
-	};
+		const seedEnhanced = <RaidSeedDataEnhanced>await postEnhanceSeedData(data, fetch);
+		const seedPrepared = prepareRaidSeed(seedEnhanced);
 
-	let trigger: () => void;
-	$: trigger = () => {
+		return seedPrepared;
+	}
+
+	function displayUploadedSeed() {
 		$seedData = {};
 		$error = '';
 		$loading = true;
@@ -73,7 +62,18 @@
 			.then((data) => ($seedData = data))
 			.catch((err) => ($error = err))
 			.finally(() => ($loading = false));
-	};
+	}
+
+	let raidSeedLinks: NavbarLink[] = $navbar.links.raidInfo?.children ?? [];
+
+	let currentLinkIndex: number;
+	$: currentLinkIndex = raidSeedLinks.findIndex((lnk) => $page.url.href.endsWith(lnk.href));
+
+	let prevLink: NavbarLink | undefined;
+	$: prevLink = raidSeedLinks[currentLinkIndex + 1];
+
+	let nextLink: NavbarLink | undefined;
+	$: nextLink = raidSeedLinks[currentLinkIndex - 1];
 </script>
 
 <div class="container max-w-4xl flex flex-col items-center space-y-4">
@@ -116,7 +116,11 @@
 		/>
 	</div>
 
-	<button class="btn btn-primary gap-2" on:click={trigger} class:btn-disabled={$loading}>
+	<button
+		class="btn btn-primary gap-2"
+		on:click={displayUploadedSeed}
+		class:btn-disabled={$loading}
+	>
 		<Upload width="28" height="28" />
 		Submit seed file
 	</button>

@@ -3,20 +3,6 @@ import { SortOrder } from '../types';
 import { BASE_URL_API } from './URLS';
 import type { ExternalFetch } from '@sveltejs/kit';
 
-export interface SuccesfulApiResponse {
-	ok: true;
-	status: number;
-	data: unknown;
-}
-
-export interface FailedApiResponse {
-	ok: false;
-	status?: number;
-	error: Error;
-}
-
-export type ApiResponse = SuccesfulApiResponse | FailedApiResponse;
-
 export function getSeedFilenames(
 	sortOrder: SortOrder = SortOrder.DESCENDING,
 	externalFetch: ExternalFetch | undefined = undefined
@@ -65,26 +51,23 @@ async function makeAPIRequest(
 ): Promise<unknown> {
 	const fetchFunc = externalFetch ?? fetch;
 
-	return fetchFunc(req).then((res) => {
-		console.log('before all checks', res.ok);
+	const res = await fetchFunc(req);
 
-		if (!res.ok) {
-			return res.text().then((data) => {
-				throw new Error(`${res.status}: Fetching from ${req.url}\n${data}`);
-			});
-		}
+	if (!res.ok) {
+		throw new Error(`${res.status}: Fetching from ${req.url}\n${await res.text()}`);
+	}
 
-		if (res.headers.get('content-type') === null) {
-			throw new Error(`Response from ${req.url} did not specify content-type`);
-		}
+	const headerContentType = res.headers.get('content-type');
 
-		if (!res.headers.get('content-type')?.includes('application/json')) {
-			throw new Error(`
-			Response from ${req.url} returned Content-Type ${res.headers.get(
-				'content-type'
-			)}, not application/json`);
-		}
+	if (headerContentType === null) {
+		throw new Error(`Response from ${req.url} did not specify content-type`);
+	}
 
-		return res.json();
-	});
+	if (!headerContentType.includes('application/json')) {
+		throw new Error(
+			`Response from ${req.url} returned Content-Type ${headerContentType}, not application/json`
+		);
+	}
+
+	return res.json();
 }

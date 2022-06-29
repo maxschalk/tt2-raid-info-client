@@ -14,9 +14,8 @@
 	}) {
 		const { seedISODate } = params;
 
-		const seedPrepared = await getSeedByFilename(seedISODate, fetch).then((data) =>
-			prepareRaidSeed(<RaidSeedDataEnhanced>data)
-		);
+		const seedEnhanced = <RaidSeedDataEnhanced>await getSeedByFilename(seedISODate, fetch);
+		const seedPrepared = prepareRaidSeed(seedEnhanced);
 
 		return {
 			props: {
