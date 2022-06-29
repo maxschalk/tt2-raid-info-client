@@ -125,7 +125,7 @@
 				max={maxTier}
 				value={tier}
 				onChange={onTierChange}
-				classes={['input', 'input-bordered', 'text-xl']}
+				classes={['input', 'input-bordered', 'text-xl', 'w-full']}
 			/>
 			<span class="font-bold">Tier [{minTier} - {maxTier}]</span>
 		</div>
@@ -137,7 +137,7 @@
 				max={maxLevel}
 				value={level}
 				onChange={onLevelChange}
-				classes={['input', 'input-bordered', 'text-xl']}
+				classes={['input', 'input-bordered', 'text-xl', 'w-full']}
 			/>
 			<span class="font-bold">Level [{minLevel} - {maxLevel}]</span>
 		</div>
