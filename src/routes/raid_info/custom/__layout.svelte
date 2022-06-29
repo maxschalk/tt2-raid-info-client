@@ -63,7 +63,7 @@
 		);
 	};
 
-	let trigger: VoidFunction;
+	let trigger: () => void;
 	$: trigger = () => {
 		$seedData = {};
 		$error = '';

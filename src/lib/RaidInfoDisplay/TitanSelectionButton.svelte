@@ -3,7 +3,7 @@
 
 	export let displayText = '';
 
-	export let onClick: VoidFunction;
+	export let onClick: () => void;
 
 	export let classes: string[] = [];
 
