@@ -74,13 +74,9 @@ async function makeAPIRequest(
 			});
 		}
 
-		console.log('after ok check', res.headers.get('content-type'));
-
 		if (res.headers.get('content-type') === null) {
 			throw new Error(`Response from ${req.url} did not specify content-type`);
 		}
-
-		console.log('after content-type exists check', res.headers.get('content-type'));
 
 		if (!res.headers.get('content-type')?.includes('application/json')) {
 			throw new Error(`
@@ -88,8 +84,6 @@ async function makeAPIRequest(
 				'content-type'
 			)}, not application/json`);
 		}
-
-		console.log('after all checks');
 
 		return res.json();
 	});

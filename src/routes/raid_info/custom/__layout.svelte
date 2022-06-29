@@ -56,7 +56,7 @@
 
 		const data = await file.text();
 
-		JSON.parse(data); // throws proper error for invalid JSON
+		JSON.parse(data); // throws proper error for invalid JSON without server communication
 
 		return postEnhanceSeedData(data, fetch).then((data) =>
 			prepareRaidSeed(<RaidSeedDataEnhanced>data)
