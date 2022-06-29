@@ -1,7 +1,7 @@
 IF [%1]==[] (
-    SET "CommitMessage=automated: :rocket: force deploy from dev"
+    SET CommitMessage="automated: :rocket: force deploy from dev"
 ) ELSE (
-    SET "CommitMessage=%1"
+    SET CommitMessage=%1
 )
 
 git checkout dev

@@ -1,11 +1,6 @@
 <script lang="ts">
 	import AboutCard from '$lib/AboutCard.svelte';
-	import { BASE_URLS } from '../../constants';
-	import { getStageFromEnv } from '../../utils';
-
-	const STAGE = getStageFromEnv();
-
-	const BASE_URL = BASE_URLS[STAGE];
+	import { BASE_URL } from '../../apiInterface';
 </script>
 
 <div class="container  max-w-4xl">

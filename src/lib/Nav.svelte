@@ -5,6 +5,8 @@
 	import { page } from '$app/stores';
 	import ThemeSelect from './ThemeSelect.svelte';
 
+	import { isoDateWithinWeek } from '../utils';
+
 	let props: NavbarProps;
 
 	const unsubscribe = navbar.subscribe((value) => (props = value));
@@ -61,7 +63,10 @@
 
 							<ul class="p-2 bg-base-300 w-full">
 								{#each link.children as child}
-									<li class="w-full">
+									<li
+										class="w-full"
+										class:text-success={isoDateWithinWeek(child.displayText)}
+									>
 										<a
 											href={child.href}
 											sveltekit:prefetch={child.prefetch}

@@ -1,13 +1,9 @@
 <script lang="ts" context="module">
 	import type { ExternalFetch } from '@sveltejs/kit';
-	import type { RaidSeedDataEnhanced, RaidSeedDataPrepared } from 'src/types';
+	import type { RaidSeedDataEnhanced, RaidSeedDataPrepared } from '../../../types';
 
-	import { BASE_URLS_API } from '../../../constants';
-	import { filenameFromISODateString, getStageFromEnv, prepareRaidSeed } from '../../../utils';
-
-	const STAGE = getStageFromEnv();
-
-	const BASE_URL = BASE_URLS_API[STAGE];
+	import { getSeedByFilename } from '../../../apiInterface';
+	import { prepareRaidSeed } from '../../../utils';
 
 	export async function load({
 		fetch,
@@ -18,29 +14,14 @@
 	}) {
 		const { seedISODate } = params;
 
-		const { filename } = filenameFromISODateString(seedISODate);
-
-		const reqUrl = new URL(`${BASE_URL}/admin/seed_file/enhanced/${filename}`);
-
-		const req = new Request(reqUrl);
-
-		const res = await fetch(req);
-
-		if (!res.ok) {
-			return {
-				status: res.status,
-				error: new Error(`Could not fetch seed from ${reqUrl}`),
-			};
-		}
-
-		const seed_raw: RaidSeedDataEnhanced = await res.json();
-
-		const seed_prepared: RaidSeedDataPrepared = prepareRaidSeed(seed_raw);
+		const seedPrepared = await getSeedByFilename(seedISODate, fetch).then((data) =>
+			prepareRaidSeed(<RaidSeedDataEnhanced>data)
+		);
 
 		return {
 			props: {
 				seedISODate,
-				seed_prepared,
+				seedPrepared,
 			},
 		};
 	}
@@ -52,17 +33,13 @@
 
 	import RaidSeedDisplay from '$lib/RaidSeedDisplay.svelte';
 
-	import ArrowLeftBoldCircle from 'svelte-material-icons/ArrowLeftBoldCircle.svelte';
-	import ArrowRightBoldCircle from 'svelte-material-icons/ArrowRightBoldCircle.svelte';
-	import { onDestroy } from 'svelte';
+	import ArrowLeft from 'svelte-material-icons/ArrowLeftBoldCircleOutline.svelte';
+	import ArrowRight from 'svelte-material-icons/ArrowRightBoldCircleOutline.svelte';
 
 	export let seedISODate: string;
-	export let seed_prepared: RaidSeedDataPrepared;
+	export let seedPrepared: RaidSeedDataPrepared;
 
-	let raidSeedLinks: NavbarLink[];
-	const unsubscribe = navbar.subscribe(
-		(nb) => (raidSeedLinks = nb.links.raidInfo?.children ?? [])
-	);
+	let raidSeedLinks: NavbarLink[] = $navbar.links.raidInfo?.children ?? [];
 
 	let prevLink: NavbarLink | undefined;
 	$: prevLink =
@@ -71,8 +48,6 @@
 	let nextLink: NavbarLink | undefined;
 	$: nextLink =
 		raidSeedLinks[raidSeedLinks.findIndex((lnk) => $page.url.href.endsWith(lnk.href)) - 1];
-
-	onDestroy(unsubscribe);
 </script>
 
 <div class="container max-w-4xl flex flex-col items-center">
@@ -82,7 +57,7 @@
 			href={prevLink?.href}
 			class:btn-disabled={prevLink === undefined}
 		>
-			<ArrowLeftBoldCircle width="30" height="30" />
+			<ArrowLeft width="28" height="28" />
 			{prevLink?.displayText ?? ''}
 		</a>
 
@@ -96,11 +71,11 @@
 			class:btn-disabled={nextLink === undefined}
 		>
 			{nextLink?.displayText ?? ''}
-			<ArrowRightBoldCircle width="30" height="30" />
+			<ArrowRight width="28" height="28" />
 		</a>
 	</div>
 
 	<div class="divider" />
 
-	<RaidSeedDisplay seed={seed_prepared} seedIdentifier={seedISODate} />
+	<RaidSeedDisplay seed={seedPrepared} seedIdentifier={seedISODate} />
 </div>

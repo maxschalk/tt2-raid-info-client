@@ -4,12 +4,17 @@
 	import RaidSeedDisplay from '$lib/RaidSeedDisplay.svelte';
 
 	import { getContext } from 'svelte';
-	import type { Writable } from 'svelte/store';
+	import LoadingSpinner from '$lib/LoadingSpinner.svelte';
 
-	const seedData = <SvelteStore<RaidSeedDataPrepared | {}>>getContext('seedData');
+	const loading = <SvelteStore<boolean>>getContext('loading');
+	const seedData = <SvelteStore<RaidSeedDataPrepared | Record<string, never>>>(
+		getContext('seedData')
+	);
 	const error = <SvelteStore<string>>getContext('error');
 
-	function seedDataExists(sd: RaidSeedDataPrepared | {}): sd is RaidSeedDataPrepared {
+	function seedDataExists(
+		sd: RaidSeedDataPrepared | Record<string, never>
+	): sd is RaidSeedDataPrepared {
 		if (Object.keys(sd).length <= 0) {
 			return false;
 		}
@@ -18,8 +23,12 @@
 	}
 </script>
 
-{#if error}
+{#if $error}
 	<h2 class="text-xl text-error whitespace-pre-line">{$error}</h2>
+{/if}
+
+{#if $loading}
+	<LoadingSpinner size={20} />
 {/if}
 
 {#if seedDataExists($seedData)}

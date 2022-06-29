@@ -1,29 +1,20 @@
 <script lang="ts">
-	import { BASE_URLS_API } from '../../../constants';
-	import { getStageFromEnv, prepareRaidSeed } from '../../../utils';
+	import { postEnhanceSeedData } from '../../../apiInterface';
+	import { prepareRaidSeed } from '../../../utils';
 
 	import { page } from '$app/stores';
-	import { navbar, type NavbarLink, fileUploadContent } from '../../../stores';
+	import { navbar, type NavbarLink } from '../../../stores';
 
 	import { setContext } from 'svelte';
 	import { writable, type Writable } from 'svelte/store';
 
-	import Slot from './index.svelte';
-
 	import type { RaidSeedDataEnhanced, RaidSeedDataPrepared } from 'src/types';
 
-	import ArrowLeftBoldCircle from 'svelte-material-icons/ArrowLeftBoldCircle.svelte';
-	import ArrowRightBoldCircle from 'svelte-material-icons/ArrowRightBoldCircle.svelte';
-	import { onDestroy } from 'svelte';
+	import ArrowLeft from 'svelte-material-icons/ArrowLeftBoldCircleOutline.svelte';
+	import ArrowRight from 'svelte-material-icons/ArrowRightBoldCircleOutline.svelte';
+	import Upload from 'svelte-material-icons/FileUploadOutline.svelte';
 
-	const STAGE = getStageFromEnv();
-
-	const BASE_URL = BASE_URLS_API[STAGE];
-
-	let raidSeedLinks: NavbarLink[];
-	const unsubscribe = navbar.subscribe(
-		(nb) => (raidSeedLinks = nb.links.raidInfo?.children ?? [])
-	);
+	let raidSeedLinks: NavbarLink[] = $navbar.links.raidInfo?.children ?? [];
 
 	let prevLink: NavbarLink | undefined;
 	$: prevLink =
@@ -33,71 +24,55 @@
 	$: nextLink =
 		raidSeedLinks[raidSeedLinks.findIndex((lnk) => $page.url.href.endsWith(lnk.href)) - 1];
 
-	onDestroy(unsubscribe);
-
 	let fileUploadElement: HTMLInputElement;
 
-	let seedData: Writable<RaidSeedDataPrepared | {}> = writable({});
+	let loading: Writable<boolean> = writable(false);
+	let seedData: Writable<RaidSeedDataPrepared | Record<string, never>> = writable({});
 	let error: Writable<string> = writable('');
 
+	setContext('loading', loading);
 	setContext('seedData', seedData);
 	setContext('error', error);
 
-	let getPreparedSeed: () => any;
+	let getPreparedSeed: () => Promise<RaidSeedDataPrepared>;
 	$: getPreparedSeed = async () => {
-		$seedData = {};
-		$error = '';
-
 		if (fileUploadElement === undefined) {
-			$error = 'Something went wrong';
-
-			return;
+			throw new Error('Something went wrong');
 		}
 
 		const file = fileUploadElement.files?.[0];
 
 		if (file === null || file === undefined) {
-			$error = 'No file selected';
-
-			return;
+			throw new Error('No file selected');
 		}
 
 		if (file.type !== 'application/json') {
 			const filenameParts = file.name.split('.');
 			const suffix = filenameParts[filenameParts.length - 1];
-			$error = `${file.type || suffix} files are not supported, please upload a JSON-file`;
-
-			return;
+			throw new Error(
+				`${file.type || suffix} files are not supported, please upload a JSON-file`
+			);
 		}
 
 		const data = await file.text();
 
-		try {
-			JSON.parse(data);
-		} catch (e) {
-			$error = `Something went wrong when parsing your file:\n${e}`;
-			return;
-		}
+		JSON.parse(data); // throws proper error for invalid JSON
 
-		fileUploadContent.set(data);
+		return postEnhanceSeedData(data, fetch).then((data) =>
+			prepareRaidSeed(<RaidSeedDataEnhanced>data)
+		);
+	};
 
-		const res = await fetch(`${BASE_URL}/admin/enhance_seed`, {
-			method: 'POST',
-			headers: {
-				Accept: 'application/json',
-				'Content-Type': 'application/json',
-			},
-			body: data,
-		});
+	let trigger: VoidFunction;
+	$: trigger = () => {
+		$seedData = {};
+		$error = '';
+		$loading = true;
 
-		if (!res.ok) {
-			$error = `${res.status}: ${await res.text()}`;
-			return;
-		}
-
-		const enhancedSeedData = await res.json();
-
-		$seedData = prepareRaidSeed(enhancedSeedData);
+		getPreparedSeed()
+			.then((data) => ($seedData = data))
+			.catch((err) => ($error = err))
+			.finally(() => ($loading = false));
 	};
 </script>
 
@@ -108,7 +83,7 @@
 			href={prevLink?.href}
 			class:btn-disabled={prevLink === undefined}
 		>
-			<ArrowLeftBoldCircle width="30" height="30" />
+			<ArrowLeft width="28" height="28" />
 			{prevLink?.displayText ?? ''}
 		</a>
 
@@ -122,7 +97,7 @@
 			class:btn-disabled={nextLink === undefined}
 		>
 			{nextLink?.displayText ?? ''}
-			<ArrowRightBoldCircle width="30" height="30" />
+			<ArrowRight width="28" height="28" />
 		</a>
 	</div>
 
@@ -141,7 +116,10 @@
 		/>
 	</div>
 
-	<button class="btn btn-primary" on:click={getPreparedSeed}> Analyse and display seed </button>
+	<button class="btn btn-primary gap-2" on:click={trigger} class:btn-disabled={$loading}>
+		<Upload width="28" height="28" />
+		Submit seed file
+	</button>
 
 	<div class="divider" />
 
