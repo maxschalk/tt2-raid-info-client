@@ -1,10 +1,8 @@
 <script lang="ts" context="module">
 	import type { ExternalFetch } from '@sveltejs/kit';
-
 	import { SortOrder } from '../types';
 
 	import { getSeedFilenames } from '../apiInterface';
-
 	import { seedFilenames, type NavbarLink } from '../stores';
 
 	export async function load({ fetch }: { fetch: ExternalFetch }) {
@@ -25,17 +23,17 @@
 
 	import { onMount } from 'svelte';
 	import { themeChange } from 'theme-change';
-	onMount(() => {
-		themeChange(false);
-	});
 
 	import Nav from '$lib/Nav.svelte';
 
 	import { navbar, type NavbarProps } from '../stores';
-
 	import { ISODateStringFromFilename } from '../utils';
 
-	$: navbar.update((old: NavbarProps) => {
+	onMount(() => {
+		themeChange(false);
+	});
+
+	navbar.update((old: NavbarProps) => {
 		return {
 			...old,
 			links: {
