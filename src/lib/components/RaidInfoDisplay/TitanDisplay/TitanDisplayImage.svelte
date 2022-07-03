@@ -5,7 +5,10 @@
   export let titanInfo: EnhancedTitan;
 </script>
 
+{#if titanInfo}
+	<span></span>
+{/if}
+
 <div class="w-full flex justify-center">
-  <img src={lemmy} alt="Dummy Titan Visualization" />
-  <p>{titanInfo.enemy_name}</p>
+  <img src={lemmy} alt="Dummy Titan Visualization" class="h-80"/>
 </div>
