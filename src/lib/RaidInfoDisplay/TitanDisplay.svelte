@@ -3,19 +3,14 @@
 
 	import type { Buff, EnhancedTitan } from 'src/types';
 	import { formatBuff, formatPartID, scrollIntoView } from '../../utils';
-	import TitanHPTableAggregated from './TitanHPTableAggregated.svelte';
-	import TitanHpTableDetailed from './TitanHPTableDetailed.svelte';
+	import TitanDisplayTable from './TitanDisplayTable.svelte';
 
 	export let titanInfo: EnhancedTitan;
 	export let count: number;
 
-	let cursedDebuffs: Buff[];
 	$: cursedDebuffs = titanInfo.cursed_debuffs ?? [];
 
 	let tableDataIsAggregated = true;
-	let tableViewIsSpaced = true;
-	let tableViewHasColors = true;
-	let tableViewHighlightSkippable = false;
 
 	async function toggleSetTableDataAggregated(newValue: boolean | undefined = undefined) {
 		if (newValue === undefined) {
@@ -81,60 +76,5 @@
 
 	<div class="divider" />
 
-	<div>
-		<svelte:component
-			this={tableDataIsAggregated ? TitanHPTableAggregated : TitanHpTableDetailed}
-			{titanInfo}
-			{tableViewIsSpaced}
-			{tableViewHasColors}
-			{tableViewHighlightSkippable}
-		/>
-	</div>
-
-	<div
-		class="menu menu-horizontal rounded-box bg-base-200 w-full flex justify-evenly items-center"
-	>
-		<div class="form-control">
-			<label class="label cursor-pointer space-x-2">
-				<input type="checkbox" bind:checked={tableViewIsSpaced} class="checkbox" />
-				<span class="label-text text-lg">Space out columns</span>
-			</label>
-		</div>
-
-		<div class="divider divider-horizontal" />
-
-		<div class="form-control">
-			<label class="label cursor-pointer space-x-2">
-				<input type="checkbox" bind:checked={tableViewHasColors} class="checkbox" />
-				<span class="label-text text-lg">Table colors</span>
-			</label>
-		</div>
-
-		<div class="divider divider-horizontal" />
-
-		<div class="flex justify-evenly space-x-4 px-3 py-1 0">
-			<div class="form-control">
-				<label class="label cursor-pointer space-x-2">
-					<input
-						type="checkbox"
-						bind:checked={tableViewHighlightSkippable}
-						class="checkbox"
-					/>
-					<span class="label-text text-lg">Highlight skippable parts</span>
-				</label>
-			</div>
-		</div>
-	</div>
-
-	<div class="flex justify-between items-center w-full" id="titan-data-end">
-		<label class="swap btn">
-			<input
-				type="checkbox"
-				checked={tableDataIsAggregated}
-				on:click={() => toggleSetTableDataAggregated()}
-			/>
-			<div class="swap-off">Show aggregated parts</div>
-			<div class="swap-on">Show detailed parts</div>
-		</label>
-	</div>
+	<TitanDisplayTable {titanInfo} {tableDataIsAggregated} {toggleSetTableDataAggregated} />
 </div>
