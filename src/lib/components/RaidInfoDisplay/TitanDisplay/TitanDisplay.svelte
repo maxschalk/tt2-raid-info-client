@@ -14,11 +14,7 @@
   let tableDataIsAggregated = true;
 
   async function toggleSetTableDataAggregated(newValue: boolean | undefined = undefined) {
-    if (newValue === undefined) {
-      tableDataIsAggregated = !tableDataIsAggregated;
-    } else {
-      tableDataIsAggregated = newValue;
-    }
+    tableDataIsAggregated = newValue ?? !tableDataIsAggregated;
 
     await tick();
 

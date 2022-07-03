@@ -14,6 +14,18 @@
   let tableViewHighlightSkippable = false;
 </script>
 
+<div class="flex justify-between items-center w-full">
+  <label class="swap btn w-full">
+    <input
+      type="checkbox"
+      checked={tableDataIsAggregated}
+      on:click={() => toggleSetTableDataAggregated()}
+    />
+    <div class="swap-off">Show aggregated parts</div>
+    <div class="swap-on">Show detailed parts</div>
+  </label>
+</div>
+
 <div>
   <svelte:component
     this={tableDataIsAggregated ? TitanHPTableAggregated : TitanHpTableDetailed}
@@ -53,14 +65,6 @@
   </div>
 </div>
 
-<div class="flex justify-between items-center w-full" id="titan-data-end">
-  <label class="swap btn">
-    <input
-      type="checkbox"
-      checked={tableDataIsAggregated}
-      on:click={() => toggleSetTableDataAggregated()}
-    />
-    <div class="swap-off">Show aggregated parts</div>
-    <div class="swap-on">Show detailed parts</div>
-  </label>
-</div>
+<span id="titan-data-end"/>
+
+
