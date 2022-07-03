@@ -7,3 +7,4 @@ export * from './capitalize';
 export * from './getEnumKeyByEnumValue';
 export * from './scrollIntoView';
 export * from './isoDateWithinWeek';
+export * from './formatHP';
