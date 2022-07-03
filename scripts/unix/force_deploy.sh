@@ -14,7 +14,7 @@ git commit -am "$msg"
 
 git checkout main
 
-git merge dev
+git merge dev -m "merge branch 'dev'"
 
 git push --all
 
