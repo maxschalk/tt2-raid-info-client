@@ -1,11 +1,14 @@
 import { Stage } from '../types';
 
-export const STAGE = getStageFromEnv();
+export const STAGE = getFromEnv('VITE_STAGE');
+export const API_STAGE = getFromEnv('VITE_API_STAGE');
 
-function getStageFromEnv(): Stage {
-    let stage = import.meta.env.VITE_STAGE;
+console.log(STAGE, API_STAGE);
 
-    if (!Object.values(Stage).includes(stage)) {
+function getFromEnv(key: string): Stage {
+    let stage = import.meta.env[key];
+
+    if (stage === undefined || !Object.values(Stage).includes(stage)) {
         stage = Stage.PRODUCTION;
     }
 
