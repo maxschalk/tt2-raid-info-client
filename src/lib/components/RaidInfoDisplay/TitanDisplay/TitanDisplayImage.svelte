@@ -1,5 +1,5 @@
 <script lang="ts">
-    import lemmy from '$lib/assets/lemmy/LEMMY.png';
+    import lemmy from '$lib/assets/lemmy/lemmy.png';
     import { getCurseImages, getHighlightSkippableImages } from '../../../../utils';
 
     import type { EnhancedTitan } from '../../../../types';
