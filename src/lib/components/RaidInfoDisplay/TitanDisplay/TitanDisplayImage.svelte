@@ -6,10 +6,14 @@
 
     export let titanInfo: EnhancedTitan;
 
-    let show = true;
+    let show = false;
 
-    $: curseImages = getCurseImages(titanInfo.consolidated_parts);
+    $: parts = titanInfo.consolidated_parts;
+
+    $: curseImages = getCurseImages(parts);
     $: highlightSkippableImages = getHighlightSkippableImages(titanInfo);
+
+    $: skippablePartsCount = parts.filter((p) => p.body_hp <= titanInfo.skippable_hp).length;
 </script>
 
 <div class="w-full flex flex-col justify-center">
@@ -24,7 +28,7 @@
             {#if titanInfo.cursed_parts.length > 0}
                 <div class="w-full">
                     <h2 class="w-full text-xl mb-8 text-center font-bold text-error">
-                        Cursed Parts
+                        Cursed Parts ({titanInfo.cursed_parts.length})
                     </h2>
                     <div class="w-full flex justify-center relative">
                         <img src={lemmy} alt="Dummy Titan Visualization" class="h-80" />
@@ -38,7 +42,7 @@
 
             <div class="w-full">
                 <h2 class="w-full text-xl mb-8 text-center font-bold text-warning">
-                    Skippable Parts
+                    Skippable Parts ({skippablePartsCount})
                 </h2>
                 <div class="w-full flex justify-center relative">
                     <img src={lemmy} alt="Dummy Titan Visualization" class="h-80" />
