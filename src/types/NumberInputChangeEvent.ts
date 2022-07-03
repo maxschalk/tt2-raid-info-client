@@ -1,3 +1,3 @@
 export type NumberInputChangeEvent = Event & {
-  currentTarget: EventTarget & HTMLInputElement;
+    currentTarget: EventTarget & HTMLInputElement;
 };

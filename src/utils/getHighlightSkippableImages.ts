@@ -11,31 +11,31 @@ import LegLeftHighlight from '$lib/assets/lemmy/LEG_LEFT_HIGHLIGHT.png';
 import { getEnumKeyByEnumValue } from '.';
 
 const IMAGES_BY_PART_IDS: { [key: string]: string } = {
-  HEAD: HeadHighlight,
-  TORSO: TorsoHighlight,
-  SHOULDER_RIGHT: ShoulderRightHighlight,
-  SHOULDER_LEFT: ShoulderLeftHighlight,
-  HAND_RIGHT: HandRightHighlight,
-  HAND_LEFT: HandLeftHighlight,
-  LEG_RIGHT: LegRightHighlight,
-  LEG_LEFT: LegLeftHighlight,
+    HEAD: HeadHighlight,
+    TORSO: TorsoHighlight,
+    SHOULDER_RIGHT: ShoulderRightHighlight,
+    SHOULDER_LEFT: ShoulderLeftHighlight,
+    HAND_RIGHT: HandRightHighlight,
+    HAND_LEFT: HandLeftHighlight,
+    LEG_RIGHT: LegRightHighlight,
+    LEG_LEFT: LegLeftHighlight,
 };
 
 export function getHighlightSkippableImages(titan: EnhancedTitan) {
-  const result = [];
+    const result = [];
 
-  for (const part of titan.consolidated_parts) {
-    if (part.body_hp > titan.skippable_hp) {
-      continue;
+    for (const part of titan.consolidated_parts) {
+        if (part.body_hp > titan.skippable_hp) {
+            continue;
+        }
+
+        const id = getEnumKeyByEnumValue(BASE_TITAN_PART_IDS, part.part_id);
+        const img = IMAGES_BY_PART_IDS[id];
+
+        if (img !== undefined) {
+            result.push(img);
+        }
     }
 
-    const id = getEnumKeyByEnumValue(BASE_TITAN_PART_IDS, part.part_id);
-    const img = IMAGES_BY_PART_IDS[id];
-
-    if (img !== undefined) {
-      result.push(img);
-    }
-  }
-
-  return result;
+    return result;
 }

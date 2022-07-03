@@ -1,133 +1,137 @@
 <script lang="ts">
-  import { postEnhanceSeedData } from '../../../apiInterface';
-  import { prepareRaidSeed } from '../../../utils';
+    import { postEnhanceSeedData } from '../../../apiInterface';
+    import { prepareRaidSeed } from '../../../utils';
 
-  import { page } from '$app/stores';
-  import { navbar, type NavbarLink } from '../../../stores';
+    import { page } from '$app/stores';
+    import { navbar, type NavbarLink } from '../../../stores';
 
-  import { setContext } from 'svelte';
-  import { writable, type Writable } from 'svelte/store';
+    import { setContext } from 'svelte';
+    import { writable, type Writable } from 'svelte/store';
 
-  import type { RaidSeedDataEnhanced, RaidSeedDataPrepared } from 'src/types';
+    import type { RaidSeedDataEnhanced, RaidSeedDataPrepared } from 'src/types';
 
-  import ArrowLeft from 'svelte-material-icons/ArrowLeftBoldCircleOutline.svelte';
-  import ArrowRight from 'svelte-material-icons/ArrowRightBoldCircleOutline.svelte';
-  import Upload from 'svelte-material-icons/FileUploadOutline.svelte';
+    import ArrowLeft from 'svelte-material-icons/ArrowLeftBoldCircleOutline.svelte';
+    import ArrowRight from 'svelte-material-icons/ArrowRightBoldCircleOutline.svelte';
+    import Upload from 'svelte-material-icons/FileUploadOutline.svelte';
 
-  let loading: Writable<boolean> = writable(false);
-  let seedData: Writable<RaidSeedDataPrepared | Record<string, never>> = writable({});
-  let error: Writable<string> = writable('');
+    let loading: Writable<boolean> = writable(false);
+    let seedData: Writable<RaidSeedDataPrepared | Record<string, never>> = writable({});
+    let error: Writable<string> = writable('');
 
-  setContext('loading', loading);
-  setContext('seedData', seedData);
-  setContext('error', error);
+    setContext('loading', loading);
+    setContext('seedData', seedData);
+    setContext('error', error);
 
-  let fileUploadElement: HTMLInputElement;
+    let fileUploadElement: HTMLInputElement;
 
-  async function getPreparedSeed(): Promise<RaidSeedDataPrepared> {
-    if (fileUploadElement === undefined) {
-      throw new Error('Something went wrong');
+    async function getPreparedSeed(): Promise<RaidSeedDataPrepared> {
+        if (fileUploadElement === undefined) {
+            throw new Error('Something went wrong');
+        }
+
+        const file = fileUploadElement.files?.[0];
+
+        if (file === null || file === undefined) {
+            throw new Error('No file selected');
+        }
+
+        if (file.type !== 'application/json') {
+            const filenameParts = file.name.split('.');
+            const suffix = filenameParts[filenameParts.length - 1];
+            throw new Error(
+                `${file.type || suffix} files are not supported, please upload a JSON-file`
+            );
+        }
+
+        const data = await file.text();
+
+        JSON.parse(data); // throws proper error for invalid JSON without server communication
+
+        const seedEnhanced = <RaidSeedDataEnhanced>await postEnhanceSeedData(data, fetch);
+        const seedPrepared = prepareRaidSeed(seedEnhanced);
+
+        return seedPrepared;
     }
 
-    const file = fileUploadElement.files?.[0];
+    function displayUploadedSeed() {
+        $seedData = {};
+        $error = '';
+        $loading = true;
 
-    if (file === null || file === undefined) {
-      throw new Error('No file selected');
+        getPreparedSeed()
+            .then((data) => ($seedData = data))
+            .catch((err) => ($error = err))
+            .finally(() => ($loading = false));
     }
 
-    if (file.type !== 'application/json') {
-      const filenameParts = file.name.split('.');
-      const suffix = filenameParts[filenameParts.length - 1];
-      throw new Error(`${file.type || suffix} files are not supported, please upload a JSON-file`);
-    }
+    let raidSeedLinks: NavbarLink[] = $navbar.links.raidInfo?.children ?? [];
 
-    const data = await file.text();
+    $: currentLinkIndex = raidSeedLinks.findIndex((lnk) => $page.url.href.endsWith(lnk.href));
 
-    JSON.parse(data); // throws proper error for invalid JSON without server communication
+    $: prevLink = raidSeedLinks[currentLinkIndex + 1];
 
-    const seedEnhanced = <RaidSeedDataEnhanced>await postEnhanceSeedData(data, fetch);
-    const seedPrepared = prepareRaidSeed(seedEnhanced);
-
-    return seedPrepared;
-  }
-
-  function displayUploadedSeed() {
-    $seedData = {};
-    $error = '';
-    $loading = true;
-
-    getPreparedSeed()
-      .then((data) => ($seedData = data))
-      .catch((err) => ($error = err))
-      .finally(() => ($loading = false));
-  }
-
-  let raidSeedLinks: NavbarLink[] = $navbar.links.raidInfo?.children ?? [];
-
-  $: currentLinkIndex = raidSeedLinks.findIndex((lnk) => $page.url.href.endsWith(lnk.href));
-
-  $: prevLink = raidSeedLinks[currentLinkIndex + 1];
-
-  $: nextLink = raidSeedLinks[currentLinkIndex - 1];
+    $: nextLink = raidSeedLinks[currentLinkIndex - 1];
 </script>
 
 <div class="container max-w-4xl flex flex-col items-center space-y-4">
-  <div class="btn-group max-w-2xl grid grid-cols-3">
-    <a
-      class="btn btn-secondary font-bold shadow gap-2"
-      href={prevLink?.href}
-      class:btn-disabled={prevLink === undefined}
-    >
-      <ArrowLeft width="28" height="28" />
-      {prevLink?.displayText ?? ''}
-    </a>
+    <div class="btn-group max-w-2xl grid grid-cols-3">
+        <a
+            class="btn btn-secondary font-bold shadow gap-2"
+            href={prevLink?.href}
+            class:btn-disabled={prevLink === undefined}
+        >
+            <ArrowLeft width="28" height="28" />
+            {prevLink?.displayText ?? ''}
+        </a>
 
-    <button href={$page.url.href} class="btn btn-disabled bg-transparent text-base-content">
-      Custom
+        <button href={$page.url.href} class="btn btn-disabled bg-transparent text-base-content">
+            Custom
+        </button>
+
+        <a
+            class="btn btn-primary font-bold shadow gap-2"
+            href={nextLink?.href}
+            class:btn-disabled={nextLink === undefined}
+        >
+            {nextLink?.displayText ?? ''}
+            <ArrowRight width="28" height="28" />
+        </a>
+    </div>
+
+    <div class="divider" />
+
+    <div class="w-full flex flex-col items-center space-y-2">
+        <label class="block text-md text-base-content" for="raid_seed">
+            Upload raw raid seed
+        </label>
+
+        <input
+            class="block pr-4 cursor-pointer bg-transparent text-base-content border border-base-content text-sm rounded-box"
+            aria-describedby="raid_seed"
+            type="file"
+            bind:this={fileUploadElement}
+        />
+    </div>
+
+    <button
+        class="btn btn-primary gap-2"
+        on:click={displayUploadedSeed}
+        class:btn-disabled={$loading}
+    >
+        <Upload width="28" height="28" />
+        Submit seed file
     </button>
 
-    <a
-      class="btn btn-primary font-bold shadow gap-2"
-      href={nextLink?.href}
-      class:btn-disabled={nextLink === undefined}
-    >
-      {nextLink?.displayText ?? ''}
-      <ArrowRight width="28" height="28" />
-    </a>
-  </div>
+    <div class="divider" />
 
-  <div class="divider" />
-
-  <div class="w-full flex flex-col items-center space-y-2">
-    <label class="block text-md text-base-content" for="raid_seed"> Upload raw raid seed </label>
-
-    <input
-      class="block pr-4 cursor-pointer bg-transparent text-base-content border border-base-content text-sm rounded-box"
-      aria-describedby="raid_seed"
-      type="file"
-      bind:this={fileUploadElement}
-    />
-  </div>
-
-  <button
-    class="btn btn-primary gap-2"
-    on:click={displayUploadedSeed}
-    class:btn-disabled={$loading}
-  >
-    <Upload width="28" height="28" />
-    Submit seed file
-  </button>
-
-  <div class="divider" />
-
-  <slot />
+    <slot />
 </div>
 
 <style lang="postcss">
-  input[type='file']::-webkit-file-upload-button,
-  input[type='file']::file-selector-button {
-    @apply bg-base-300 text-base-content text-sm cursor-pointer border-0 border-r border-base-content py-3 px-8;
-    margin-inline-start: -1rem;
-    margin-inline-end: 1rem;
-  }
+    input[type='file']::-webkit-file-upload-button,
+    input[type='file']::file-selector-button {
+        @apply bg-base-300 text-base-content text-sm cursor-pointer border-0 border-r border-base-content py-3 px-8;
+        margin-inline-start: -1rem;
+        margin-inline-end: 1rem;
+    }
 </style>

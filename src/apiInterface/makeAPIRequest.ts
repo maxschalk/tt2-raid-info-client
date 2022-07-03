@@ -4,70 +4,70 @@ import { BASE_URL_API } from './URLS';
 import type { ExternalFetch } from '@sveltejs/kit';
 
 export function getSeedFilenames(
-  sortOrder: SortOrder = SortOrder.DESCENDING,
-  externalFetch: ExternalFetch | undefined = undefined
+    sortOrder: SortOrder = SortOrder.DESCENDING,
+    externalFetch: ExternalFetch | undefined = undefined
 ): Promise<unknown> {
-  const url = new URL(`${BASE_URL_API}/admin/all_seed_filenames/raw?sort_order=${sortOrder}`);
+    const url = new URL(`${BASE_URL_API}/admin/all_seed_filenames/raw?sort_order=${sortOrder}`);
 
-  const req = new Request(url);
+    const req = new Request(url);
 
-  return makeAPIRequest(req, externalFetch);
+    return makeAPIRequest(req, externalFetch);
 }
 
 export function getSeedByFilename(
-  seedISODate: string,
-  externalFetch: ExternalFetch | undefined = undefined
+    seedISODate: string,
+    externalFetch: ExternalFetch | undefined = undefined
 ): Promise<unknown> {
-  const { filename } = filenameFromISODateString(seedISODate);
+    const { filename } = filenameFromISODateString(seedISODate);
 
-  const url = new URL(`${BASE_URL_API}/admin/seed_file/enhanced/${filename}`);
+    const url = new URL(`${BASE_URL_API}/admin/seed_file/enhanced/${filename}`);
 
-  const req = new Request(url);
+    const req = new Request(url);
 
-  return makeAPIRequest(req, externalFetch);
+    return makeAPIRequest(req, externalFetch);
 }
 
 export function postEnhanceSeedData(
-  seedData: string,
-  externalFetch: ExternalFetch | undefined = undefined
+    seedData: string,
+    externalFetch: ExternalFetch | undefined = undefined
 ): Promise<unknown> {
-  const url = new URL(`${BASE_URL_API}/admin/enhance_seed`);
+    const url = new URL(`${BASE_URL_API}/admin/enhance_seed`);
 
-  const req = new Request(url, {
-    method: 'POST',
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-    },
-    body: seedData,
-  });
+    const req = new Request(url, {
+        method: 'POST',
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+        },
+        body: seedData,
+    });
 
-  return makeAPIRequest(req, externalFetch);
+    return makeAPIRequest(req, externalFetch);
 }
 
 async function makeAPIRequest(
-  req: Request,
-  externalFetch: ExternalFetch | undefined = undefined
+    req: Request,
+    externalFetch: ExternalFetch | undefined = undefined
 ): Promise<unknown> {
-  const fetchFunc = externalFetch ?? fetch;
+    const fetchFunc = externalFetch ?? fetch;
 
-  const res = await fetchFunc(req);
+    const res = await fetchFunc(req);
 
-  if (!res.ok) {
-    throw new Error(`${res.status}: Fetching from ${req.url}\n${await res.text()}`);
-  }
+    if (!res.ok) {
+        throw new Error(`${res.status}: Fetching from ${req.url}\n${await res.text()}`);
+    }
 
-  const headerContentType = res.headers.get('content-type');
+    const headerContentType = res.headers.get('content-type');
 
-  if (headerContentType === null) {
-    throw new Error(`Response from ${req.url} did not specify content-type`);
-  }
+    if (headerContentType === null) {
+        throw new Error(`Response from ${req.url} did not specify content-type`);
+    }
 
-  if (!headerContentType.includes('application/json')) {
-    throw new Error(
-      `Response from ${req.url} returned Content-Type ${headerContentType}, not application/json`
-    );
-  }
+    if (!headerContentType.includes('application/json')) {
+        throw new Error(
+            `Response from ${req.url} returned Content-Type ${headerContentType}, not application/json`
+        );
+    }
 
-  return res.json();
+    return res.json();
 }

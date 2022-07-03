@@ -1,19 +1,19 @@
 <script lang="ts">
-  export let active = false;
+    export let active = false;
 
-  export let displayText = '';
+    export let displayText = '';
 
-  export let onClick: () => void;
+    export let onClick: () => void;
 
-  export let classes: string[] = [];
+    export let classes: string[] = [];
 
-  const activeClasses = 'active cursor-default btn-accent hover:bg-accent';
-  const inactiveClasses = 'btn-ghost bg-base-300';
+    const activeClasses = 'active cursor-default btn-accent hover:bg-accent';
+    const inactiveClasses = 'btn-ghost bg-base-300';
 </script>
 
 <button
-  on:click={onClick}
-  class={`btn px-4 ${active ? activeClasses : inactiveClasses}  ${classes.join(' ')}`}
+    on:click={onClick}
+    class={`btn px-4 ${active ? activeClasses : inactiveClasses}  ${classes.join(' ')}`}
 >
-  {displayText}
+    {displayText}
 </button>
