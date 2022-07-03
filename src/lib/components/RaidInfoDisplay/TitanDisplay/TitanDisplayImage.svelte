@@ -25,6 +25,19 @@
 
     {#if show}
         <div class="w-full grid grid-cols-2 my-8">
+            <div class="w-full">
+                <h2 class="w-full text-xl mb-8 text-center font-bold text-warning">
+                    Skippable Parts ({skippablePartsCount})
+                </h2>
+                <div class="w-full flex justify-center relative">
+                    <img src={lemmy} alt="Dummy Titan Visualization" class="h-80" />
+
+                    {#each highlightSkippableImages as image}
+                        <img src={image} alt="" class="h-80 absolute" />
+                    {/each}
+                </div>
+            </div>
+
             {#if titanInfo.cursed_parts.length > 0}
                 <div class="w-full">
                     <h2 class="w-full text-xl mb-8 text-center font-bold text-error">
@@ -39,19 +52,6 @@
                     </div>
                 </div>
             {/if}
-
-            <div class="w-full">
-                <h2 class="w-full text-xl mb-8 text-center font-bold text-warning">
-                    Skippable Parts ({skippablePartsCount})
-                </h2>
-                <div class="w-full flex justify-center relative">
-                    <img src={lemmy} alt="Dummy Titan Visualization" class="h-80" />
-
-                    {#each highlightSkippableImages as image}
-                        <img src={image} alt="" class="h-80 absolute" />
-                    {/each}
-                </div>
-            </div>
         </div>
     {/if}
 
