@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { TITAN_PART_REPRS, BASE_TITAN_PART_IDS, type EnhancedTitan } from '../../../types';
-	import { getEnumKeyByEnumValue } from '../../../utils';
+	import { TITAN_PART_REPRS, BASE_TITAN_PART_IDS, type EnhancedTitan } from '../../../../types';
+	import { getEnumKeyByEnumValue } from '../../../../utils';
 
 	export let titanInfo: EnhancedTitan;
 

@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 
-	import type { RaidSeedDataPrepared } from '../types';
+	import type { RaidSeedDataPrepared } from '../../types';
 	import NumberInput from './NumberInput.svelte';
 	import RaidInfoDisplay from './RaidInfoDisplay/RaidInfoDisplay.svelte';
 

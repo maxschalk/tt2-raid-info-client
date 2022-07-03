@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { capitalize } from '../utils';
+	import { capitalize } from '../../utils';
 
 	interface Theme {
 		name: string;

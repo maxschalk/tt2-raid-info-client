@@ -1,10 +1,10 @@
 <script lang="ts">
 	import type { RaidSeedDataPrepared } from 'src/types';
 
-	import RaidSeedDisplay from '$lib/RaidSeedDisplay.svelte';
+	import RaidSeedDisplay from '$lib/components/RaidSeedDisplay.svelte';
 
 	import { getContext } from 'svelte';
-	import LoadingSpinner from '$lib/LoadingSpinner.svelte';
+	import LoadingSpinner from '$lib/components/LoadingSpinner.svelte';
 
 	const loading = <SvelteStore<boolean>>getContext('loading');
 	const seedData = <SvelteStore<RaidSeedDataPrepared | Record<string, never>>>(

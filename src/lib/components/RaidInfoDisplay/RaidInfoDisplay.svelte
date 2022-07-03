@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { EnhancedTitan, RaidInfoDataEnhanced } from 'src/types';
-	import { formatBuff } from '../../utils';
+	import { formatBuff } from '../../../utils';
 	import TitanSelectionButton from './TitanSelectionButton.svelte';
 	import TitanDisplay from './TitanDisplay/TitanDisplay.svelte';
 

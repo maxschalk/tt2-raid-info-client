@@ -21,7 +21,7 @@
 	import { onMount } from 'svelte';
 	import { themeChange } from 'theme-change';
 
-	import Nav from '$lib/Nav.svelte';
+	import Nav from '$lib/components/Nav.svelte';
 
 	import { navbar, type NavbarProps } from '../stores';
 	import { ISODateStringFromFilename } from '../utils';

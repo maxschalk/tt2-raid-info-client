@@ -1,12 +1,12 @@
 <script lang="ts">
-	import { formatHP } from '../../../utils';
+	import { formatHP } from '../../../../utils';
 
 	import {
 		AGGREGATED_TO_BASE_PART_IDS,
 		TITAN_PART_REPRS,
 		type AccumulatedTitanPart,
 		type EnhancedTitan,
-	} from '../../../types';
+	} from '../../../../types';
 
 	export let titanInfo: EnhancedTitan;
 

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { NumberInputChangeEvent } from 'src/types';
+	import type { NumberInputChangeEvent } from '../../types';
 
 	export let elementName: string;
 	export let min: number;

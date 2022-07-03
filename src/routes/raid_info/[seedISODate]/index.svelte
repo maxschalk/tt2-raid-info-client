@@ -30,7 +30,7 @@
 	import { page } from '$app/stores';
 	import { navbar, type NavbarLink } from '../../../stores';
 
-	import RaidSeedDisplay from '$lib/RaidSeedDisplay.svelte';
+	import RaidSeedDisplay from '$lib/components/RaidSeedDisplay.svelte';
 
 	import ArrowLeft from 'svelte-material-icons/ArrowLeftBoldCircleOutline.svelte';
 	import ArrowRight from 'svelte-material-icons/ArrowRightBoldCircleOutline.svelte';

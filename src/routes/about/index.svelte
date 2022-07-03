@@ -1,5 +1,5 @@
 <script lang="ts">
-	import AboutCard from '$lib/AboutCard.svelte';
+	import AboutCard from '$lib/components/AboutCard.svelte';
 	import { BASE_URL } from '../../apiInterface';
 </script>
 

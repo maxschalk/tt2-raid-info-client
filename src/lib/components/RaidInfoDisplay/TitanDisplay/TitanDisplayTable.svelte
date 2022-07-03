@@ -1,11 +1,11 @@
 <script lang="ts">
-	import type { EnhancedTitan } from 'src/types';
+	import type { EnhancedTitan } from '../../../../types';
 	import TitanHPTableAggregated from './TitanHPTableAggregated.svelte';
 	import TitanHpTableDetailed from './TitanHPTableDetailed.svelte';
 
 	export let tableDataIsAggregated = true;
 
-	export let toggleSetTableDataAggregated: (newValue?: boolean) => void = () => {};
+	export let toggleSetTableDataAggregated: (newValue?: boolean) => void = () => undefined;
 
 	export let titanInfo: EnhancedTitan;
 

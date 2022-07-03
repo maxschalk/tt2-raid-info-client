@@ -1,11 +1,11 @@
 <script lang="ts">
-	import { navbar, type NavbarProps } from '../stores';
+	import { navbar, type NavbarProps } from '../../stores';
 	import { onDestroy } from 'svelte';
 
 	import { page } from '$app/stores';
 	import ThemeSelect from './ThemeSelect.svelte';
 
-	import { isoDateWithinWeek } from '../utils';
+	import { isoDateWithinWeek } from '../../utils';
 
 	let props: NavbarProps;
 

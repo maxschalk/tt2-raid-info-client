@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { tick } from 'svelte';
 
-	import type { EnhancedTitan } from 'src/types';
-	import { formatBuff, formatPartID, scrollIntoView } from '../../../utils';
+	import type { EnhancedTitan } from '../../../../types';
+	import { formatBuff, formatPartID, scrollIntoView } from '../../../../utils';
 	import TitanDisplayTable from './TitanDisplayTable.svelte';
 	import TitanDisplayImage from './TitanDisplayImage.svelte';
 
