@@ -1,67 +1,67 @@
 <script lang="ts" context="module">
-	import type { ExternalFetch } from '@sveltejs/kit';
-	import { SortOrder } from '../types';
+  import type { ExternalFetch } from '@sveltejs/kit';
+  import { SortOrder } from '../types';
 
-	import { getSeedFilenames } from '../apiInterface';
-	import { seedFilenames, type NavbarLink } from '../stores';
+  import { getSeedFilenames } from '../apiInterface';
+  import { seedFilenames, type NavbarLink } from '../stores';
 
-	export async function load({ fetch }: { fetch: ExternalFetch }) {
-		try {
-			const data = await getSeedFilenames(SortOrder.DESCENDING, fetch);
-			seedFilenames.set(<string[]>data);
-		} catch (e) {
-			seedFilenames.set([]);
-		}
+  export async function load({ fetch }: { fetch: ExternalFetch }) {
+    try {
+      const data = await getSeedFilenames(SortOrder.DESCENDING, fetch);
+      seedFilenames.set(<string[]>data);
+    } catch (e) {
+      seedFilenames.set([]);
+    }
 
-		return {};
-	}
+    return {};
+  }
 </script>
 
 <script lang="ts">
-	import '../app.css';
-	import '../global.css';
+  import '../app.css';
+  import '../global.css';
 
-	import { onMount } from 'svelte';
-	import { themeChange } from 'theme-change';
+  import { onMount } from 'svelte';
+  import { themeChange } from 'theme-change';
 
-	import Nav from '$lib/components/Nav.svelte';
+  import Nav from '$lib/components/Nav.svelte';
 
-	import { navbar, type NavbarProps } from '../stores';
-	import { ISODateStringFromFilename } from '../utils';
+  import { navbar, type NavbarProps } from '../stores';
+  import { ISODateStringFromFilename } from '../utils';
 
-	onMount(() => {
-		themeChange(false);
-	});
+  onMount(() => {
+    themeChange(false);
+  });
 
-	navbar.update((old: NavbarProps) => {
-		return {
-			...old,
-			links: {
-				...old.links,
-				raidInfo: {
-					...old.links.raidInfo,
-					children: [
-						...(<NavbarLink[]>(
-							$seedFilenames.map(ISODateStringFromFilename).map((isoDateString) => ({
-								href: `/raid_info/${isoDateString}`,
-								displayText: isoDateString,
-								prefetch: true,
-							}))
-						)),
-						{
-							href: '/raid_info/custom',
-							displayText: 'Upload own',
-							prefetch: true,
-						},
-					],
-				},
-			},
-		};
-	});
+  navbar.update((old: NavbarProps) => {
+    return {
+      ...old,
+      links: {
+        ...old.links,
+        raidInfo: {
+          ...old.links.raidInfo,
+          children: [
+            ...(<NavbarLink[]>(
+              $seedFilenames.map(ISODateStringFromFilename).map((isoDateString) => ({
+                href: `/raid_info/${isoDateString}`,
+                displayText: isoDateString,
+                prefetch: true,
+              }))
+            )),
+            {
+              href: '/raid_info/custom',
+              displayText: 'Upload own',
+              prefetch: true,
+            },
+          ],
+        },
+      },
+    };
+  });
 </script>
 
 <Nav />
 
 <main class="pt-20">
-	<slot />
+  <slot />
 </main>

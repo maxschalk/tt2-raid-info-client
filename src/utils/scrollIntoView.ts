@@ -1,12 +1,12 @@
 export function scrollIntoView(targetSelector: string) {
-	const el = document.querySelector(targetSelector);
+  const el = document.querySelector(targetSelector);
 
-	if (!el) {
-		return;
-	}
+  if (!el) {
+    return;
+  }
 
-	el.scrollIntoView({
-		behavior: 'smooth',
-		block: 'end',
-	});
+  el.scrollIntoView({
+    behavior: 'smooth',
+    block: 'end',
+  });
 }
