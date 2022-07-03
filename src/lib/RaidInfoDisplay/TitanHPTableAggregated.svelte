@@ -38,8 +38,7 @@
 		});
 	}
 
-	let colorPartSkippable: (hp: number) => boolean;
-	$: colorPartSkippable = (hp) => {
+	$: colorPartSkippable = (hp: number) => {
 		return tableViewHighlightSkippable && tableViewHasColors && hp <= titanInfo.skippable_hp;
 	};
 </script>

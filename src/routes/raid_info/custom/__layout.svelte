@@ -66,13 +66,10 @@
 
 	let raidSeedLinks: NavbarLink[] = $navbar.links.raidInfo?.children ?? [];
 
-	let currentLinkIndex: number;
 	$: currentLinkIndex = raidSeedLinks.findIndex((lnk) => $page.url.href.endsWith(lnk.href));
 
-	let prevLink: NavbarLink | undefined;
 	$: prevLink = raidSeedLinks[currentLinkIndex + 1];
 
-	let nextLink: NavbarLink | undefined;
 	$: nextLink = raidSeedLinks[currentLinkIndex - 1];
 </script>
 

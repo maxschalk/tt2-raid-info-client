@@ -16,7 +16,6 @@
 	let tier = 1;
 	let level = 1;
 
-	let raidInfo: RaidInfoDataEnhanced;
 	$: raidInfo = seed.data_by_tier_level[tier][level];
 
 	const inputOptionsTierLevel: { [key: string]: { min: number; max: number } } = {};

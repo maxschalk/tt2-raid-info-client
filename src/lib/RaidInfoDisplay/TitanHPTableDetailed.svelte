@@ -8,8 +8,7 @@
 	export let tableViewHasColors = true;
 	export let tableViewHighlightSkippable = false;
 
-	let colorPartSkippable: (hp: number) => boolean;
-	$: colorPartSkippable = (hp) => {
+	$: colorPartSkippable = (hp: number) => {
 		return tableViewHighlightSkippable && tableViewHasColors && hp <= titanInfo.skippable_hp;
 	};
 </script>

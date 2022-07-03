@@ -8,13 +8,10 @@
 
 	export let raidInfo: RaidInfoDataEnhanced;
 
-	let spawnSequence: string[];
 	$: spawnSequence = raidInfo.spawn_sequence;
 
-	let selectedTitan: string;
 	$: selectedTitan = spawnSequence[0];
 
-	let enemyInfoByTitan: { [key: string]: EnhancedTitan };
 	$: enemyInfoByTitan = raidInfo.titans.reduce((acc, next) => {
 		acc[next.enemy_name] = next;
 		return acc;
