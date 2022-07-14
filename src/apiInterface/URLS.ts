@@ -3,7 +3,7 @@ import { API_STAGE } from './STAGE';
 
 const BASE_URLS: { [K in Stage]: string } = {
     dev: 'http://localhost:5000',
-    prod: 'https://riskypengu.in',
+    prod: 'https://tt2-raid-info-api.up.railway.app',
 };
 
 const BASE_URLS_API: { [K in Stage]: string } = {
