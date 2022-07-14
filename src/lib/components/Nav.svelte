@@ -5,7 +5,7 @@
     import { page } from '$app/stores';
     import ThemeSelect from './ThemeSelect.svelte';
 
-    import { isoDateWithinWeek } from '../../utils';
+    import { nowWithinWeekFromISODate } from '../../utils';
 
     let props: NavbarProps;
 
@@ -65,7 +65,9 @@
                                 {#each link.children as child}
                                     <li
                                         class="w-full"
-                                        class:text-success={isoDateWithinWeek(child.displayText)}
+                                        class:text-success={nowWithinWeekFromISODate(
+                                            child.displayText
+                                        )}
                                     >
                                         <a
                                             href={child.href}

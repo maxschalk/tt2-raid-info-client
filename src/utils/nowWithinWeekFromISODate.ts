@@ -1,4 +1,4 @@
-export function isoDateWithinWeek(isoDate: string) {
+export function nowWithinWeekFromISODate(isoDate: string) {
     if (!/[0-9]{4}-[0-9]{2}-[0-9]{2}/.test(isoDate)) {
         return false;
     }

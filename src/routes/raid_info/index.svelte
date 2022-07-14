@@ -1,7 +1,7 @@
 <script lang="ts">
     import { navbar } from '../../stores';
 
-    import { isoDateWithinWeek } from '../../utils';
+    import { nowWithinWeekFromISODate } from '../../utils';
 </script>
 
 <div class="flex flex-col items-center max-w-xl text-center space-y-6">
@@ -15,7 +15,7 @@
                 <li class="group hover:bg-primary-focus hover:text-primary-content">
                     <a href={raidInfoLink.href} sveltekit:prefetch={raidInfoLink.prefetch}>
                         {raidInfoLink.displayText}
-                        {#if isoDateWithinWeek(raidInfoLink.displayText)}
+                        {#if nowWithinWeekFromISODate(raidInfoLink.displayText)}
                             <span class="font-bold text-success group-hover:text-inherit">
                                 | active
                             </span>
