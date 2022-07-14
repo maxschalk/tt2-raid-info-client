@@ -1,5 +1,5 @@
-import { BASE_TITAN_PART_IDS, TITAN_PART_REPRS } from '../types';
-import { getEnumKeyByEnumValue } from './getEnumKeyByEnumValue';
+import { BASE_TITAN_PART_IDS, TITAN_PART_REPRS } from '../../types';
+import { getEnumKeyByEnumValue } from '..';
 
 export function formatPartID(partID: string) {
     const words = partID.match(/[A-Z][a-z]+/g);

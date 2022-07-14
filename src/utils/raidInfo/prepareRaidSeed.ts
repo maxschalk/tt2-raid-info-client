@@ -1,14 +1,9 @@
-import type {
-    RaidSeedDataPrepared,
-    RaidSeedData,
-    RaidInfoDataRaw,
-    RaidInfoDataEnhanced,
-} from 'src/types';
+import type { RaidSeedDataPrepared, RaidInfoDataEnhanced, RaidSeedDataEnhanced } from '../../types';
 
-export function prepareRaidSeed(seed: RaidSeedData): RaidSeedDataPrepared {
+export function prepareRaidSeed(seed: RaidSeedDataEnhanced): RaidSeedDataPrepared {
     const data_by_tier_level: {
         [key: string]: {
-            [key: string]: RaidInfoDataRaw | RaidInfoDataEnhanced;
+            [key: string]: RaidInfoDataEnhanced;
         };
     } = {};
 

@@ -1,4 +1,4 @@
-import type { Buff } from 'src/types';
+import type { Buff } from '../../types';
 
 export function formatBuff(buff: Buff, numCursedParts = 0) {
     const buffName = formatBuffName(buff.bonus_type);

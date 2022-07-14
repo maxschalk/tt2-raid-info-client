@@ -22,20 +22,8 @@ const IMAGES_BY_PART_IDS: { [key: string]: string } = {
 };
 
 export function getHighlightSkippableImages(titan: EnhancedTitan) {
-    const result = [];
-
-    for (const part of titan.consolidated_parts) {
-        if (part.body_hp > titan.skippable_hp) {
-            continue;
-        }
-
-        const id = getEnumKeyByEnumValue(BASE_TITAN_PART_IDS, part.part_id);
-        const img = IMAGES_BY_PART_IDS[id];
-
-        if (img !== undefined) {
-            result.push(img);
-        }
-    }
-
-    return result;
+    return titan.consolidated_parts
+        .filter((part) => part.body_hp <= titan.skippable_hp)
+        .map((part) => IMAGES_BY_PART_IDS[getEnumKeyByEnumValue(BASE_TITAN_PART_IDS, part.part_id)])
+        .filter((img) => img !== undefined);
 }

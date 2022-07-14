@@ -22,20 +22,8 @@ const IMAGES_BY_PART_IDS: { [key: string]: string } = {
 };
 
 export function getCurseImages(parts: ConsolidatedTitanPart[]) {
-    const result = [];
-
-    for (const part of parts) {
-        if (!part.armor_cursed) {
-            continue;
-        }
-
-        const id = getEnumKeyByEnumValue(BASE_TITAN_PART_IDS, part.part_id);
-        const img = IMAGES_BY_PART_IDS[id];
-
-        if (img !== undefined) {
-            result.push(img);
-        }
-    }
-
-    return result;
+    return parts
+        .filter((part) => part.armor_cursed)
+        .map((part) => IMAGES_BY_PART_IDS[getEnumKeyByEnumValue(BASE_TITAN_PART_IDS, part.part_id)])
+        .filter((img) => img !== undefined);
 }
