@@ -92,7 +92,7 @@
                 { text: 'GitHub', href: 'https://github.com/riskypenguin/tt2-raid-info-api' },
             ]}
         >
-            <svelte:fragment slot="title">Custom backend</svelte:fragment>
+            <svelte:fragment slot="title">Backend</svelte:fragment>
 
             <p slot="body" class="whitespace-pre-line">
                 All raid data is served by the TT2 Raid Info API {'\n'} Built with Python & FastAPI
