@@ -1,12 +1,7 @@
 <script lang="ts">
-    import { formatHP } from '../../../../utils';
+    import { getAccumulatedParts } from '../../../../utils';
 
-    import {
-        AGGREGATED_TO_BASE_PART_IDS,
-        TITAN_PART_REPRS,
-        type AccumulatedTitanPart,
-        type EnhancedTitan,
-    } from '../../../../types';
+    import type { EnhancedTitan } from '../../../../types';
 
     export let titanInfo: EnhancedTitan;
 
@@ -14,29 +9,7 @@
     export let tableViewHasColors = true;
     export let tableViewHighlightSkippable = false;
 
-    const accumulatedParts: AccumulatedTitanPart[] = [];
-
-    for (const [key, partIDs] of Object.entries(AGGREGATED_TO_BASE_PART_IDS)) {
-        let armorHP = 0;
-        let bodyHP = 0;
-
-        for (const partID of partIDs) {
-            const part = titanInfo.consolidated_parts.find((p) => p.part_id === partID);
-
-            armorHP += part?.armor_hp ?? 0;
-            bodyHP += part?.body_hp ?? 0;
-        }
-
-        accumulatedParts.push({
-            part_id: TITAN_PART_REPRS[key] ?? key,
-
-            armor_hp: armorHP,
-            body_hp: bodyHP,
-
-            armor_hp_formatted: formatHP(armorHP),
-            body_hp_formatted: formatHP(bodyHP),
-        });
-    }
+    $: accumulatedParts = getAccumulatedParts(titanInfo);
 
     $: colorPartSkippable = (hp: number) => {
         return tableViewHighlightSkippable && tableViewHasColors && hp <= titanInfo.skippable_hp;
