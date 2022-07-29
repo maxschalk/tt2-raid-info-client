@@ -7,7 +7,7 @@ export function getSeedFilenames(
     sortOrder: SortOrder = SortOrder.DESCENDING,
     externalFetch: ExternalFetch | undefined = undefined
 ): Promise<unknown> {
-    const url = new URL(`${BASE_URL_API}/admin/all_seed_filenames/raw?sort_order=${sortOrder}`);
+    const url = new URL(`${BASE_URL_API}/admin/seed_identifiers/raw?sort_order=${sortOrder}`);
 
     const req = new Request(url);
 
@@ -20,7 +20,7 @@ export function getSeedByFilename(
 ): Promise<unknown> {
     const { filename } = filenameFromISODateString(seedISODate);
 
-    const url = new URL(`${BASE_URL_API}/admin/seed_file/enhanced/${filename}`);
+    const url = new URL(`${BASE_URL_API}/admin/seed/enhanced/${filename}`);
 
     const req = new Request(url);
 
@@ -31,7 +31,7 @@ export function postEnhanceSeedData(
     seedData: string,
     externalFetch: ExternalFetch | undefined = undefined
 ): Promise<unknown> {
-    const url = new URL(`${BASE_URL_API}/admin/enhance_seed`);
+    const url = new URL(`${BASE_URL_API}/admin/enhance`);
 
     const req = new Request(url, {
         method: 'POST',

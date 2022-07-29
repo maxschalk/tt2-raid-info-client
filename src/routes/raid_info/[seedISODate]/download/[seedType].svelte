@@ -11,7 +11,7 @@
 
         const { filename } = filenameFromISODateString(seedISODate);
 
-        const downloadUrl = `${BASE_URL_API}/admin/seed_file/${seedType}/${filename}`;
+        const downloadUrl = `${BASE_URL_API}/admin/seed/${seedType}/${filename}`;
 
         return {
             status: 302,
