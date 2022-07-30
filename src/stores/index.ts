@@ -1,3 +1,3 @@
 export * from './NavbarProps';
-export * from './RaidInfoSeedFilenames';
+export * from './RaidInfoSeedIdentifiers';
 export * from './CustomRaidSeed';

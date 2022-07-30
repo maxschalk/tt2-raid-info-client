@@ -1,6 +1,6 @@
 <script lang="ts" context="module">
     import { BASE_URL_API } from '../../../../apiInterface';
-    import { filenameFromISODateString } from '../../../../utils';
+    import { seedIdentifierFromISODateString } from '../../../../utils';
 
     export async function load({ params }: { params: { seedISODate: string; seedType: string } }) {
         let { seedISODate, seedType } = params;
@@ -9,9 +9,9 @@
             seedType = 'raw';
         }
 
-        const { filename } = filenameFromISODateString(seedISODate);
+        const identifier = seedIdentifierFromISODateString(seedISODate);
 
-        const downloadUrl = `${BASE_URL_API}/admin/seed/${seedType}/${filename}`;
+        const downloadUrl = `${BASE_URL_API}/admin/seed/${seedType}/${identifier}`;
 
         return {
             status: 302,

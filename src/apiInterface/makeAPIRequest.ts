@@ -1,9 +1,9 @@
-import { filenameFromISODateString } from '../utils';
+import { seedIdentifierFromISODateString } from '../utils';
 import { SortOrder } from '../types';
 import { BASE_URL_API } from './URLS';
 import type { ExternalFetch } from '@sveltejs/kit';
 
-export function getSeedFilenames(
+export function listSeedIdentifiers(
     sortOrder: SortOrder = SortOrder.DESCENDING,
     externalFetch: ExternalFetch | undefined = undefined
 ): Promise<unknown> {
@@ -14,13 +14,13 @@ export function getSeedFilenames(
     return makeAPIRequest(req, externalFetch);
 }
 
-export function getSeedByFilename(
+export function getSeedByIdentifier(
     seedISODate: string,
     externalFetch: ExternalFetch | undefined = undefined
 ): Promise<unknown> {
-    const { filename } = filenameFromISODateString(seedISODate);
+    const seedIdentifier = seedIdentifierFromISODateString(seedISODate);
 
-    const url = new URL(`${BASE_URL_API}/admin/seed/enhanced/${filename}`);
+    const url = new URL(`${BASE_URL_API}/admin/seed/enhanced/${seedIdentifier}`);
 
     const req = new Request(url);
 

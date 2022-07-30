@@ -2,7 +2,7 @@
     import type { ExternalFetch } from '@sveltejs/kit';
     import type { RaidSeedDataEnhanced, RaidSeedDataPrepared } from '../../../types';
 
-    import { getSeedByFilename } from '../../../apiInterface';
+    import { getSeedByIdentifier } from '../../../apiInterface';
     import { prepareRaidSeed } from '../../../utils';
 
     export async function load({
@@ -14,7 +14,7 @@
     }) {
         const { seedISODate } = params;
 
-        const seedEnhanced = <RaidSeedDataEnhanced>await getSeedByFilename(seedISODate, fetch);
+        const seedEnhanced = <RaidSeedDataEnhanced>await getSeedByIdentifier(seedISODate, fetch);
         const seedPrepared = prepareRaidSeed(seedEnhanced);
 
         return {

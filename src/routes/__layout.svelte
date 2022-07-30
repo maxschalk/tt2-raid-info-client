@@ -2,15 +2,15 @@
     import type { ExternalFetch } from '@sveltejs/kit';
     import { SortOrder } from '../types';
 
-    import { getSeedFilenames } from '../apiInterface';
-    import { seedFilenames, type NavbarLink } from '../stores';
+    import { listSeedIdentifiers } from '../apiInterface';
+    import { seedIdentifiers, type NavbarLink } from '../stores';
 
     export async function load({ fetch }: { fetch: ExternalFetch }) {
         try {
-            const data = await getSeedFilenames(SortOrder.DESCENDING, fetch);
-            seedFilenames.set(<string[]>data);
+            const data = await listSeedIdentifiers(SortOrder.DESCENDING, fetch);
+            seedIdentifiers.set(<string[]>data);
         } catch (e) {
-            seedFilenames.set([]);
+            seedIdentifiers.set([]);
         }
 
         return {};
@@ -27,7 +27,7 @@
     import Nav from '$lib/components/Nav.svelte';
 
     import { navbar, type NavbarProps } from '../stores';
-    import { ISODateStringFromFilename } from '../utils';
+    import { ISODateStringFromSeedIdentifier } from '../utils';
 
     onMount(() => {
         themeChange(false);
@@ -42,11 +42,13 @@
                     ...old.links.raidInfo,
                     children: [
                         ...(<NavbarLink[]>(
-                            $seedFilenames.map(ISODateStringFromFilename).map((isoDateString) => ({
-                                href: `/raid_info/${isoDateString}`,
-                                displayText: isoDateString,
-                                prefetch: true,
-                            }))
+                            $seedIdentifiers
+                                .map(ISODateStringFromSeedIdentifier)
+                                .map((isoDateString) => ({
+                                    href: `/raid_info/${isoDateString}`,
+                                    displayText: isoDateString,
+                                    prefetch: true,
+                                }))
                         )),
                         {
                             href: '/raid_info/custom',

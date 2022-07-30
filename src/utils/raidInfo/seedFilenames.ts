@@ -1,18 +1,13 @@
-export function filenameFromISODateString(isoDateString: string) {
+export function seedIdentifierFromISODateString(isoDateString: string) {
     const dateString = isoDateString.replaceAll('-', '');
 
-    const name = `raid_seed_${dateString}`;
-    const suffix = '.json';
+    const identifier = `raid_seed_${dateString}`;
 
-    return {
-        name,
-        suffix,
-        filename: `${name}${suffix}`,
-    };
+    return identifier;
 }
 
-export function ISODateStringFromFilename(filename: string) {
-    const matches = /^raid_seed_([0-9]{8})\.json$/.exec(filename);
+export function ISODateStringFromSeedIdentifier(identifier: string) {
+    const matches = /^raid_seed_([0-9]{8})$/.exec(identifier);
 
     if (matches === null) {
         return '';
