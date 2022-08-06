@@ -35,6 +35,6 @@
     />
 {:else if $loading}
     <div class="max-w-xs flex-col items-center mt-8">
-        <LoadingSpinner size={20} />
+        <LoadingSpinner />
     </div>
 {/if}

@@ -55,7 +55,7 @@
 <div class="container max-w-4xl flex flex-col items-center">
     {#await fetchSeedPrepared}
         <div class="max-w-xs flex-col items-center mt-8">
-            <LoadingSpinner size={20} />
+            <LoadingSpinner />
         </div>
     {:then data}
         <div class="btn-group max-w-2xl grid grid-cols-3">
