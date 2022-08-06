@@ -1,9 +1,10 @@
 <script lang="ts">
+    import { getContext } from 'svelte';
+
     import type { RaidSeedDataPrepared } from 'src/types';
 
     import RaidSeedDisplay from '$lib/components/RaidSeedDisplay.svelte';
 
-    import { getContext } from 'svelte';
     import LoadingSpinner from '$lib/components/LoadingSpinner.svelte';
 
     const loading = <SvelteStore<boolean>>getContext('loading');
@@ -33,5 +34,7 @@
         canDownloadEnhanced={false}
     />
 {:else if $loading}
-    <LoadingSpinner size={20} />
+    <div class="max-w-xs flex-col items-center mt-8">
+        <LoadingSpinner size={20} fillColor={'primary'} />
+    </div>
 {/if}
