@@ -13,7 +13,7 @@
 
 <button
     on:click={onClick}
-    class={`btn px-4 ${active ? activeClasses : inactiveClasses}  ${classes.join(' ')}`}
+    class={`btn px-4 ${active ? activeClasses : inactiveClasses} ${classes.join(' ')}`}
 >
     {displayText}
 </button>

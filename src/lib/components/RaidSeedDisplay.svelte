@@ -5,8 +5,8 @@
     import NumberInput from './NumberInput.svelte';
     import RaidInfoDisplay from './RaidInfoDisplay/RaidInfoDisplay.svelte';
 
-    import CloudDownloadOutline from 'svelte-material-icons/CloudDownloadOutline.svelte';
     import CloudDownload from 'svelte-material-icons/CloudDownload.svelte';
+    import CloudDownloadOutline from 'svelte-material-icons/CloudDownloadOutline.svelte';
 
     export let seedIdentifier: string;
     export let seed: RaidSeedDataPrepared;
@@ -31,12 +31,7 @@
         };
     });
 
-    const minTier = Math.min(
-        ...Object.keys(seed.data_by_tier_level).map((val) => parseInt(val, 10))
-    );
-    const maxTier = Math.max(
-        ...Object.keys(seed.data_by_tier_level).map((val) => parseInt(val, 10))
-    );
+    const tierOptions = Object.keys(seed.data_by_tier_level).map((val) => parseInt(val, 10));
 
     let minLevel = inputOptionsTierLevel[tier].min;
 
@@ -116,29 +111,37 @@
 
     <div class="divider" />
 
-    <div class="grid grid-cols-2 gap-3 items-center justify-items-center">
-        <div class="col-span-2 input-group grid grid-cols-2">
-            <NumberInput
-                elementName="tier"
-                min={minTier}
-                max={maxTier}
-                value={tier}
-                onChange={onTierChange}
-                classes={['input', 'input-bordered', 'text-xl', 'w-full']}
-            />
-            <span class="font-bold">Tier [{minTier} - {maxTier}]</span>
+    <div class="grid gap-4 items-center justify-items-center">
+        <div class="input-group grid grid-cols-3">
+            <div class="col-span-2 grid grid-cols-5 p-0 rounded-none">
+                {#each tierOptions as tierOption}
+                    <button
+                        style="border-top-right-radius: 0; border-bottom-right-radius: 0;"
+                        class={`btn btn-md text-lg rounded-none ${
+                            tier === tierOption
+                                ? 'active cursor-default btn-accent hover:bg-accent'
+                                : 'btn-ghost bg-base-200'
+                        }`}
+                        on:click={() => onTierChange(tierOption)}
+                    >
+                        {tierOption}
+                    </button>
+                {/each}
+            </div>
+            <span class="font-bold bg-base-300">Tier</span>
         </div>
 
-        <div class="col-span-2 input-group grid grid-cols-2">
+        <div class="input-group grid grid-cols-3">
             <NumberInput
                 elementName="level"
                 min={minLevel}
                 max={maxLevel}
                 value={level}
                 onChange={onLevelChange}
-                classes={['input', 'input-bordered', 'text-xl', 'w-full']}
+                containerClasses={['col-span-2']}
+                inputClasses={['input', 'input-bordered', 'text-xl', 'w-full']}
             />
-            <span class="font-bold">Level [{minLevel} - {maxLevel}]</span>
+            <span class="bg-base-300 font-bold">Level [{minLevel} - {maxLevel}]</span>
         </div>
     </div>
 

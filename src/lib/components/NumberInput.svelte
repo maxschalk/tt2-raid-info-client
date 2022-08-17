@@ -8,7 +8,8 @@
     export let onChange: (value: number) => void;
     export let preventDefault = false;
 
-    export let classes: string[] = [];
+    export let containerClasses: string[] = [];
+    export let inputClasses: string[] = [];
 
     function handleOnChange(event: NumberInputChangeEvent) {
         if (preventDefault) {
@@ -49,7 +50,7 @@
     }
 </script>
 
-<div class="relative">
+<div class={`relative ${containerClasses.join(' ')}`}>
     <input
         type="number"
         name={elementName}
@@ -57,7 +58,7 @@
         {max}
         {value}
         on:change={handleOnChange}
-        class={classes.join(' ')}
+        class={inputClasses.join(' ')}
     />
     <div class="absolute right-2 top-0 flex">
         <button
