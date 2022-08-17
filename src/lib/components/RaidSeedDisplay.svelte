@@ -113,7 +113,7 @@
 
     <div class="grid gap-4 items-center justify-items-center">
         <div class="input-group grid grid-cols-3">
-            <div class="col-span-2 grid grid-cols-5 p-0 rounded-none">
+            <div class="col-span-2 grid grid-flow-col p-0 rounded-none">
                 {#each tierOptions as tierOption}
                     <button
                         style="border-top-right-radius: 0; border-bottom-right-radius: 0;"
