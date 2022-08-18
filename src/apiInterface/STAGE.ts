@@ -1,7 +1,7 @@
 import { Stage } from '../types';
 
-export const STAGE = getFromEnv('VITE_STAGE');
-export const API_STAGE = getFromEnv('VITE_API_STAGE');
+export const STAGE = getFromEnv('VITE_STAGE') || Stage.PRODUCTION;
+export const API_STAGE = getFromEnv('VITE_API_STAGE') || Stage.PRODUCTION;
 
 function getFromEnv(key: string): Stage {
     let stage = import.meta.env[key];
