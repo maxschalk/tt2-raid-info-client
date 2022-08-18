@@ -1,38 +1,49 @@
-# create-svelte
+# TT2 Raid Data Client
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
+## Context
 
-## Creating a project
+This repo is part of a bigger project concerning weekly raid data of GameHive's popular mobile game [Tap Titans 2](https://www.gamehive.com/games/tap-titans-2).
 
-If you're seeing this, you've probably already done this step. Congrats!
+The weekly raid data for clans used to only be available on [GameHive's Discord Server](https://discord.gg/gamehive) in raw JSON format. The overarching project is an effort to make this data more accesible to players both programmatically (via API) or visually (via this web app).
 
-```bash
-# create a new project in the current directory
-npm init svelte
+## Description
 
-# create a new project in my-app
-npm init svelte my-app
-```
+This web app provides a visual way to access and explore raid seed data.
 
-## Developing
+It receives data by the [TT2 Raid Info API](https://github.com/riskypenguin/tt2-raid-info-api).
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+## Installation
 
-```bash
-npm run dev
+1. Clone this repository:
 
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
+    ```bash
+    git clone https://github.com/riskypenguin/tt2-raid-info-client.git tt2-raid-info-client
+    ```
 
-## Building
+2. Install requirements
 
-To create a production version of your app:
+    ```bash
+    npm install
+    ```
 
-```bash
-npm run build
-```
+## Usage
 
-You can preview the production build with `npm run preview`.
+You can run the project locally via `npm run dev`.
 
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+It tries to get `STAGE` and `API_STAGE` (development / production) variables from the environment. Production is assumed as a default for both.
+
+This allows you to point the client to another version of the API (e.g. a locally hosted one) if necessary. By default, data is fetched from the production version of the TT2 Raid Info API, hosted by me.
+
+## Project status & Roadmap
+
+The client is feature-complete for now.
+
+## Contributing
+
+Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
+
+Please make sure to update tests as appropriate.
+
+## License
+
+[MIT](https://choosealicense.com/licenses/mit/)
