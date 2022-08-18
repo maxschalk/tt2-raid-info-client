@@ -4,16 +4,16 @@ IF [%1]==[] (
     SET CommitMessage=%1
 )
 
-git checkout dev
+git switch dev
 
 git add .
 
 git commit -am %CommitMessage%
 
-git checkout main
+git switch main
 
 git merge dev
 
 git push --all
 
-git checkout dev
+git switch dev

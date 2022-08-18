@@ -6,16 +6,16 @@ else
 fi
 
 
-git checkout dev
+git switch dev
 
 git add .
 
 git commit -am "$msg"
 
-git checkout main
+git switch main
 
 git merge dev -m "merge branch 'dev'"
 
 git push --all
 
-git checkout dev
+git switch dev
